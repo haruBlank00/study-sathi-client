@@ -1,11 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 
-// type SearchParams = {
-//   email: string;
-//   token: string;
-// };
-
 const magicParamsSchema = z.object({
   email: z.string().email().catch(""),
   token: z.string().catch(""),
