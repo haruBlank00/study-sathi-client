@@ -6,8 +6,8 @@ import { Google } from "@/components/ui/icons/google";
 import { Separator } from "@/components/ui/separator";
 import { createFileRoute } from "@tanstack/react-router";
 import { useForm } from "react-hook-form";
-import { loginFields } from "./form/fields";
-import { TLoginSchema, loginResolver } from "./form/login.schema";
+import { loginFields } from "./-form/fields";
+import { TLoginSchema, loginResolver } from "./-form/login.schema";
 
 export const Route = createFileRoute("/auth/signin/")({
   component: LoginPage,

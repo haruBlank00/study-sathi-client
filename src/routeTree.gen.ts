@@ -12,8 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as AuthSigninIndexImport } from './routes/auth/signin/index'
-import { Route as AuthSigninFormFieldsImport } from './routes/auth/signin/form/fields'
-import { Route as AuthSigninFormLoginSchemaImport } from './routes/auth/signin/form/login.schema'
+import { Route as AuthMagicLinkIndexImport } from './routes/auth/magic-link/index'
 
 // Create/Update Routes
 
@@ -22,13 +21,8 @@ const AuthSigninIndexRoute = AuthSigninIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const AuthSigninFormFieldsRoute = AuthSigninFormFieldsImport.update({
-  path: '/auth/signin/form/fields',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AuthSigninFormLoginSchemaRoute = AuthSigninFormLoginSchemaImport.update({
-  path: '/auth/signin/form/login/schema',
+const AuthMagicLinkIndexRoute = AuthMagicLinkIndexImport.update({
+  path: '/auth/magic-link/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -36,16 +30,12 @@ const AuthSigninFormLoginSchemaRoute = AuthSigninFormLoginSchemaImport.update({
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/auth/magic-link/': {
+      preLoaderRoute: typeof AuthMagicLinkIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/auth/signin/': {
       preLoaderRoute: typeof AuthSigninIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/auth/signin/form/fields': {
-      preLoaderRoute: typeof AuthSigninFormFieldsImport
-      parentRoute: typeof rootRoute
-    }
-    '/auth/signin/form/login/schema': {
-      preLoaderRoute: typeof AuthSigninFormLoginSchemaImport
       parentRoute: typeof rootRoute
     }
   }
@@ -54,9 +44,8 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren([
+  AuthMagicLinkIndexRoute,
   AuthSigninIndexRoute,
-  AuthSigninFormFieldsRoute,
-  AuthSigninFormLoginSchemaRoute,
 ])
 
 /* prettier-ignore-end */
