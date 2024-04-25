@@ -1,3 +1,4 @@
+import { QueryClientProvider } from "@/components/providers/query-client-provider.tsx";
 import { routeTree } from "./routeTree.gen.ts";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 
@@ -9,7 +10,11 @@ declare module "@tanstack/react-router" {
   }
 }
 const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider>
+      <RouterProvider router={router} />;
+    </QueryClientProvider>
+  );
 };
 
 export default App;

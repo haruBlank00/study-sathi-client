@@ -25,6 +25,7 @@ export const FormBuilder = <T extends FieldValues>({
     const { label, name, placeholder, type } = field;
     return (
       <FormField
+        key={name}
         control={form.control}
         name={name as Path<T>}
         render={({ field }) => (
