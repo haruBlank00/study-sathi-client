@@ -1,6 +1,6 @@
 import apiInstance from "@/lib/axios";
-import { getEnv } from "@/lib/getEnv";
 import { createFileRoute } from "@tanstack/react-router";
+import { AxiosError } from "axios";
 import { useEffect } from "react";
 import { z } from "zod";
 
@@ -15,13 +15,26 @@ export const Route = createFileRoute("/auth/magic-link/")({
 });
 
 function MagicLinkPage() {
-  console.log("env varuable/", getEnv("SS_API_END_POINT"));
+  const { email, token } = Route.useSearch();
 
   useEffect(() => {
     apiInstance({
-      method: "post",
+      method: "GET",
       url: "auth/magic-link",
-    });
+      params: {
+        email,
+        token,
+      },
+    })
+      .then((response) => {
+        console.log({ response });
+      })
+      .catch((e) => {
+        console.log({ e });
+        if (e instanceof AxiosError) {
+          console.log(e.message);
+        }
+      });
   }, []);
 
   return <div>MagicLinkPage</div>;
