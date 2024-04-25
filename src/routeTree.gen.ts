@@ -11,10 +11,16 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as DashboardIndexImport } from './routes/dashboard/index'
 import { Route as AuthSigninIndexImport } from './routes/auth/signin/index'
 import { Route as AuthMagicLinkIndexImport } from './routes/auth/magic-link/index'
 
 // Create/Update Routes
+
+const DashboardIndexRoute = DashboardIndexImport.update({
+  path: '/dashboard/',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const AuthSigninIndexRoute = AuthSigninIndexImport.update({
   path: '/auth/signin/',
@@ -30,6 +36,10 @@ const AuthMagicLinkIndexRoute = AuthMagicLinkIndexImport.update({
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/dashboard/': {
+      preLoaderRoute: typeof DashboardIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/auth/magic-link/': {
       preLoaderRoute: typeof AuthMagicLinkIndexImport
       parentRoute: typeof rootRoute
@@ -44,6 +54,7 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren([
+  DashboardIndexRoute,
   AuthMagicLinkIndexRoute,
   AuthSigninIndexRoute,
 ])

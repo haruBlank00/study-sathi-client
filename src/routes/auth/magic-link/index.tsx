@@ -1,8 +1,9 @@
-import apiInstance from "@/lib/axios";
-import { createFileRoute } from "@tanstack/react-router";
-import { AxiosError } from "axios";
-import { useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { Navigate, createFileRoute } from "@tanstack/react-router";
+import { Else, If, Then } from "react-if";
 import { z } from "zod";
+import { MagicLoader } from "./-components/loader";
+import { getMagicLinkTokens } from "./-query";
 
 const magicParamsSchema = z.object({
   email: z.string().email().catch(""),
@@ -16,26 +17,19 @@ export const Route = createFileRoute("/auth/magic-link/")({
 
 function MagicLinkPage() {
   const { email, token } = Route.useSearch();
+  const { error, isLoading } = useQuery({
+    queryKey: [token],
+    queryFn: async () => await getMagicLinkTokens({ email, token }),
+  });
 
-  useEffect(() => {
-    apiInstance({
-      method: "GET",
-      url: "auth/magic-link",
-      params: {
-        email,
-        token,
-      },
-    })
-      .then((response) => {
-        console.log({ response });
-      })
-      .catch((e) => {
-        console.log({ e });
-        if (e instanceof AxiosError) {
-          console.log(e.message);
-        }
-      });
-  }, []);
-
-  return <div>MagicLinkPage</div>;
+  return (
+    <If condition={isLoading && !error}>
+      <Then>
+        <MagicLoader />
+      </Then>
+      <Else>
+        <Navigate to="/dashboard" />
+      </Else>
+    </If>
+  );
 }
