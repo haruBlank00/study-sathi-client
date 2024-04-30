@@ -12,8 +12,8 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as DashboardIndexImport } from './routes/dashboard/index'
+import { Route as AuthVerifyMagicLinkIndexImport } from './routes/auth/verify-magic-link/index'
 import { Route as AuthSigninIndexImport } from './routes/auth/signin/index'
-import { Route as AuthMagicLinkIndexImport } from './routes/auth/magic-link/index'
 
 // Create/Update Routes
 
@@ -22,13 +22,13 @@ const DashboardIndexRoute = DashboardIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const AuthSigninIndexRoute = AuthSigninIndexImport.update({
-  path: '/auth/signin/',
+const AuthVerifyMagicLinkIndexRoute = AuthVerifyMagicLinkIndexImport.update({
+  path: '/auth/verify-magic-link/',
   getParentRoute: () => rootRoute,
 } as any)
 
-const AuthMagicLinkIndexRoute = AuthMagicLinkIndexImport.update({
-  path: '/auth/magic-link/',
+const AuthSigninIndexRoute = AuthSigninIndexImport.update({
+  path: '/auth/signin/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -40,12 +40,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexImport
       parentRoute: typeof rootRoute
     }
-    '/auth/magic-link/': {
-      preLoaderRoute: typeof AuthMagicLinkIndexImport
-      parentRoute: typeof rootRoute
-    }
     '/auth/signin/': {
       preLoaderRoute: typeof AuthSigninIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/auth/verify-magic-link/': {
+      preLoaderRoute: typeof AuthVerifyMagicLinkIndexImport
       parentRoute: typeof rootRoute
     }
   }
@@ -55,8 +55,8 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   DashboardIndexRoute,
-  AuthMagicLinkIndexRoute,
   AuthSigninIndexRoute,
+  AuthVerifyMagicLinkIndexRoute,
 ])
 
 /* prettier-ignore-end */

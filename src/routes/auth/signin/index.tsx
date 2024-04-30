@@ -8,6 +8,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useForm } from "react-hook-form";
 import { loginFields } from "./-form/fields";
 import { TLoginSchema, loginResolver } from "./-form/login.schema";
+import { useGetMagicTokens } from "./-hooks/useGetMagicLinkTokens";
 
 export const Route = createFileRoute("/auth/signin/")({
   component: LoginPage,
@@ -21,8 +22,22 @@ function LoginPage() {
     },
   });
 
+  const { getMagicTokens, isPending } = useGetMagicTokens();
   const onLoginHandler = (data: TLoginSchema) => {
-    console.log({ data });
+    getMagicTokens(
+      {
+        email: data.email,
+      },
+      {
+        onSuccess(data) {
+          console.log(data);
+        },
+        onError(error) {
+          console.log("nani");
+          console.log({ error });
+        },
+      }
+    );
   };
   return (
     <div className="h-screen grid place-items-center">
@@ -51,7 +66,7 @@ function LoginPage() {
           </div>
 
           <SathiForm form={form} fields={loginFields} onSubmit={onLoginHandler}>
-            <Button className="w-full py-2" type="submit">
+            <Button className="w-full py-2" type="submit" disabled={isPending}>
               Login with magic link
             </Button>
           </SathiForm>

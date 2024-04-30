@@ -6,7 +6,13 @@ import {
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { If, Then } from "react-if";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 3,
+    },
+  },
+});
 
 const isDevEnv = getEnv<boolean>("DEV");
 
