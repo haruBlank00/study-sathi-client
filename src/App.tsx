@@ -14,7 +14,7 @@ const App = () => {
   return (
     <QueryClientProvider>
       <RouterProvider router={router} />;
-      <Toaster richColors  />
+      <Toaster richColors />
     </QueryClientProvider>
   );
 };

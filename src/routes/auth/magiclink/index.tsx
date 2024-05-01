@@ -1,6 +1,14 @@
+import { useAuthStore } from "@/hooks/auth";
 import apiInstance from "@/lib/axios";
-import { Navigate, createFileRoute, redirect } from "@tanstack/react-router";
+import {
+  Navigate,
+  createFileRoute,
+  redirect,
+  useLoaderData,
+} from "@tanstack/react-router";
+import { useEffect } from "react";
 import { z } from "zod";
+import { VerifyMagicResponse } from "./-types";
 
 const magicParamsSchema = z.object({
   email: z.string().email().catch(""),
@@ -11,9 +19,9 @@ export const Route = createFileRoute("/auth/magiclink/")({
   component: MagicLinkPage,
   validateSearch: magicParamsSchema,
   loaderDeps: ({ search: { email, token } }) => ({ email, token }),
-  loader: ({ deps: { email, token } }) => {
+  loader: async ({ deps: { email, token } }) => {
     try {
-      apiInstance({
+      const response = await apiInstance<VerifyMagicResponse>({
         method: "POST",
         url: "magic/verify",
         data: {
@@ -21,9 +29,8 @@ export const Route = createFileRoute("/auth/magiclink/")({
           token,
         },
       });
+      return response.data.data.tokens;
     } catch (error) {
-      console.log({ error });
-      console.error("Fuck!!!");
       redirect({
         to: "/auth/signin",
         throw: true,
@@ -34,19 +41,17 @@ export const Route = createFileRoute("/auth/magiclink/")({
 });
 
 function MagicLinkPage() {
-  return <Navigate to="/dashboard" />;
-  // const { email, token } = Route.useSearch();
-  // const { isPending, verifyMagicLink } = useVerifyMagicLink();
-  // console.log("second");
-  // useEffect(() => {
-  //   verifyMagicLink({
-  //     email,
-  //     token,
-  //   });
-  // }, [email, token, verifyMagicLink]);
+  const { accessToken, refreshToken } = useLoaderData({
+    from: "/auth/magiclink/",
+  });
+  const { setAuthData } = useAuthStore();
 
-  // if (isPending) {
-  //   return <MagicLoader />;
-  // }
-  // return <h1>ok wait</h1>;
+  useEffect(() => {
+    setAuthData({
+      isAuthenticated: true,
+      accessToken,
+      refreshToken,
+    });
+  }, []);
+  return <Navigate to="/dashboard" />;
 }
