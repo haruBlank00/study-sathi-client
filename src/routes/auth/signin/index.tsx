@@ -43,12 +43,12 @@ function LoginPage() {
     <div className="h-screen grid place-items-center">
       <Card className="w-[32rem] ">
         <CardHeader className="text-center">
-          <CardTitle>Study Sathi</CardTitle>
-          <p>Welcome back! Sign in to continue</p>
+          <CardTitle className="text-4xl">Study Sathi</CardTitle>
+          <p className="text-lg">Welcome back! Sign in to continue</p>
         </CardHeader>
 
         <CardContent className="flex flex-col">
-          <div className="flex gap-2">
+          <div className="flex gap-4">
             <Button className="flex-1 h-auto py-2 ">
               <Github className="mr-2" />
               With Github
@@ -59,14 +59,18 @@ function LoginPage() {
             </Button>
           </div>
 
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-2 items-center my-6">
             <Separator className="flex-1" />
             or
             <Separator className="flex-1" />
           </div>
 
           <SathiForm form={form} fields={loginFields} onSubmit={onLoginHandler}>
-            <Button className="w-full py-2" type="submit" disabled={isPending}>
+            <Button
+              className="w-full py-2 mt-4"
+              type="submit"
+              disabled={isPending}
+            >
               Login with magic link
             </Button>
           </SathiForm>

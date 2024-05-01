@@ -1,6 +1,7 @@
 import { QueryClientProvider } from "@/components/providers/query-client-provider.tsx";
 import { routeTree } from "./routeTree.gen.ts";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
+import { Toaster } from "@/components/ui/sonner.tsx";
 
 const router = createRouter({ routeTree });
 
@@ -13,6 +14,7 @@ const App = () => {
   return (
     <QueryClientProvider>
       <RouterProvider router={router} />;
+      <Toaster richColors  />
     </QueryClientProvider>
   );
 };
