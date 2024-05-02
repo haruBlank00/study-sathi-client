@@ -23,8 +23,6 @@ export const useGetMagicTokens = () => {
       },
     });
 
-  console.log({ error, data });
-
   return {
     data,
     error,

@@ -26,20 +26,9 @@ function LoginPage() {
   const { getMagicTokens, isPending } = useGetMagicTokens();
   const { isAuthenticated } = useAuthStore();
   const onLoginHandler = (data: TLoginSchema) => {
-    getMagicTokens(
-      {
-        email: data.email,
-      },
-      {
-        onSuccess(data) {
-          console.log(data);
-        },
-        onError(error) {
-          console.log("nani");
-          console.log({ error });
-        },
-      }
-    );
+    getMagicTokens({
+      email: data.email,
+    });
   };
 
   if (isAuthenticated) {
