@@ -15,7 +15,7 @@ const magicParamsSchema = z.object({
   token: z.string().catch(""),
 });
 
-export const Route = createFileRoute("/auth/magiclink/")({
+export const Route = createFileRoute("/auth/_layout/magiclink/")({
   component: MagicLinkPage,
   validateSearch: magicParamsSchema,
   loaderDeps: ({ search: { email, token } }) => ({ email, token }),
@@ -42,7 +42,7 @@ export const Route = createFileRoute("/auth/magiclink/")({
 
 function MagicLinkPage() {
   const { accessToken, refreshToken } = useLoaderData({
-    from: "/auth/magiclink/",
+    from: "/auth/_layout/magiclink/",
   });
   const { setAuthData } = useAuthStore();
 

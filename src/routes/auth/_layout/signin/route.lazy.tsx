@@ -5,14 +5,18 @@ import { Github } from "@/components/ui/icons/github";
 import { Google } from "@/components/ui/icons/google";
 import { Separator } from "@/components/ui/separator";
 import { useAuthStore } from "@/hooks/auth";
-import { Navigate, createFileRoute } from "@tanstack/react-router";
+import {
+  Navigate,
+  createLazyFileRoute
+} from "@tanstack/react-router";
 import { useForm } from "react-hook-form";
 import { loginFields } from "./-form/fields";
 import { TLoginSchema, loginResolver } from "./-form/login.schema";
 import { useGetMagicTokens } from "./-hooks/useGetMagicLinkTokens";
 
-export const Route = createFileRoute("/auth/signin/")({
+export const Route = createLazyFileRoute("/auth/_layout/signin")({
   component: LoginPage,
+  notFoundComponent: () => <h2>opps not found vyao ne taw</h2>,
 });
 
 function LoginPage() {

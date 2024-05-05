@@ -8,7 +8,6 @@ function RootPage() {
   return (
     <>
       <Outlet />
-
       <TanStackRouterDevtools />
     </>
   );
