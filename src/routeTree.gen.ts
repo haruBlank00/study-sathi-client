@@ -18,6 +18,7 @@ import { Route as AuthLayoutImport } from './routes/auth/_layout'
 import { Route as DashboardLayoutIndexImport } from './routes/dashboard/_layout/index'
 import { Route as DashboardLayoutChallengeIndexImport } from './routes/dashboard/_layout/challenge/index'
 import { Route as AuthLayoutMagiclinkIndexImport } from './routes/auth/_layout/magiclink/index'
+import { Route as DashboardLayoutChallengeChallengeIdIndexImport } from './routes/dashboard/_layout/challenge/$challengeId/index'
 
 // Create Virtual Routes
 
@@ -72,6 +73,12 @@ const AuthLayoutMagiclinkIndexRoute = AuthLayoutMagiclinkIndexImport.update({
   getParentRoute: () => AuthLayoutRoute,
 } as any)
 
+const DashboardLayoutChallengeChallengeIdIndexRoute =
+  DashboardLayoutChallengeChallengeIdIndexImport.update({
+    path: '/challenge/$challengeId/',
+    getParentRoute: () => DashboardLayoutRoute,
+  } as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -108,6 +115,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardLayoutChallengeIndexImport
       parentRoute: typeof DashboardLayoutImport
     }
+    '/dashboard/_layout/challenge/$challengeId/': {
+      preLoaderRoute: typeof DashboardLayoutChallengeChallengeIdIndexImport
+      parentRoute: typeof DashboardLayoutImport
+    }
   }
 }
 
@@ -124,6 +135,7 @@ export const routeTree = rootRoute.addChildren([
     DashboardLayoutRoute.addChildren([
       DashboardLayoutIndexRoute,
       DashboardLayoutChallengeIndexRoute,
+      DashboardLayoutChallengeChallengeIdIndexRoute,
     ]),
   ]),
 ])
