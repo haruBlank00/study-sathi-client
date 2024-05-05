@@ -1,4 +1,5 @@
 import { InputField } from "@/components/form/form-builder";
+import { emailSchema } from "@/schema";
 
 export const loginFields: InputField[] = [
   {
@@ -6,5 +7,6 @@ export const loginFields: InputField[] = [
     label: "Email Address",
     placeholder: "johbdoe@gmail.com",
     type: "email",
+    schema: emailSchema,
   },
 ];

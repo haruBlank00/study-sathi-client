@@ -1,9 +1,10 @@
+/* eslint-disable react-refresh/only-export-components */
 import { useAuthStore } from "@/hooks/auth";
 import axiosInstance from "@/lib/axios";
 import { AxiosInstance, InternalAxiosRequestConfig } from "axios";
 import React, { createContext, useEffect } from "react";
 
-const axiosContext = createContext<AxiosInstance>(axiosInstance);
+export const axiosContext = createContext<AxiosInstance>(axiosInstance);
 
 export const AxiosProvider = ({ children }: { children: React.ReactNode }) => {
   const { accessToken, isAuthenticated } = useAuthStore();
@@ -31,4 +32,8 @@ export const AxiosProvider = ({ children }: { children: React.ReactNode }) => {
       {children}
     </axiosContext.Provider>
   );
+};
+
+export const useAxios = () => {
+  return React.useContext(axiosContext);
 };

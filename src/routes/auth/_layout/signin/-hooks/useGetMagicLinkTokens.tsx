@@ -8,7 +8,11 @@ type MagicLinkParams = {
 
 export const useGetMagicTokens = () => {
   const { data, error, mutateAsync, isSuccess, isError, isPending } =
-    useMutation<SuccessResponse, ErrorResponse, MagicLinkParams>({
+    useMutation<
+      SuccessResponse<{ message: string }>,
+      ErrorResponse,
+      MagicLinkParams
+    >({
       mutationFn: ({ email }: MagicLinkParams) => {
         return getMagicLinkTokens({ email });
       },

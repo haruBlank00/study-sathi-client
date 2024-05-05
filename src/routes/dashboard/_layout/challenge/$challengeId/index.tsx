@@ -4,7 +4,12 @@ import { Card } from "@/components/ui/card";
 import "@mdxeditor/editor/style.css";
 import { createFileRoute } from "@tanstack/react-router";
 import { useForm } from "react-hook-form";
-import { challengeFields, challengeResolver } from "./-form/fields";
+import {
+  TChallengeSchema,
+  challengeFields,
+  challengeResolver,
+} from "./-form/fields";
+import { useCreateChallenge } from "./-hooks/useCreateChallenge";
 export const Route = createFileRoute(
   "/dashboard/_layout/challenge/$challengeId/"
 )({
@@ -15,12 +20,21 @@ function ChallengePage() {
   const form = useForm({
     resolver: challengeResolver,
     defaultValues: {
-      title: "",
+      name: "",
       tags: "",
       description: "",
+      days: undefined,
+      privacy: "",
     },
   });
-  const onSubmitHandler = () => {};
+  const { challenge, createChallenge, isChallengeCreating } =
+    useCreateChallenge();
+
+  console.log({ challenge });
+  const onSubmitHandler = (data: TChallengeSchema) => {
+    console.log({ data });
+    createChallenge(data);
+  };
   return (
     <div>
       <h2>Take a new challenge :)</h2>
@@ -32,8 +46,12 @@ function ChallengePage() {
           className="flex flex-col"
         >
           <div className="flex gap-4 mt-8">
-            <Button type="submit">Create a new challenge</Button>
-            <Button variant={"outline"}>Save Draft</Button>
+            <Button type="submit" disabled={isChallengeCreating}>
+              Create a new challenge
+            </Button>
+            <Button variant={"outline"} disabled={isChallengeCreating}>
+              Save Draft
+            </Button>
           </div>
         </SathiForm>
       </Card>

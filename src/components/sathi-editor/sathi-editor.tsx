@@ -130,6 +130,7 @@ function SathiEditor({
   className = "",
 }: SathiEditorProps) {
   const ref = useRef<MDXEditorMethods>(null);
+
   return (
     <MDXEditor
       className={className}

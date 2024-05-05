@@ -13,26 +13,26 @@ import {
   UseFormReturn,
 } from "react-hook-form";
 import SathiEditor from "../sathi-editor/sathi-editor";
+import { SathiSelectField, SathiSelect } from "../sathi-select/sathi-select";
 // Assuming Path<T> is a generic type
 
-export interface InputField extends InputProps {
+export interface FormField {
   name: string;
   label?: string;
-  placeholder: string;
+  schema: Zod.Schema;
+}
+
+export interface InputField extends FormField, InputProps {
+  name: string;
+  type: "text" | "number" | "markdown" | "email";
+  placeholder?: string;
   customClass?: {
     label?: string;
     input?: string;
   };
-  render?: ({
-    field,
-    props,
-  }: {
-    field: object;
-    props: InputField;
-  }) => JSX.Element;
 }
 type FormBuilderProps<T extends FieldValues> = {
-  fields: InputField[];
+  fields: (InputField | SathiSelectField)[];
   form: UseFormReturn<T>;
 };
 
@@ -41,30 +41,37 @@ export const FormBuilder = <T extends FieldValues>({
   form,
 }: FormBuilderProps<T>) => {
   return fields.map((field) => {
-    const {
-      label,
-      name,
-      placeholder,
-      type,
-      render,
-      customClass = { label: "", input: "" },
-    } = field;
+    const { label, name, placeholder, type } = field;
 
-    if (render) {
+    if (field.type === "select") {
+      const { customClass = { input: "" } } = field;
       return (
         <FormField
           key={name}
           control={form.control}
           name={name as Path<T>}
-          render={({ field: formField }) => (
-            <FormItem>
-              {render({ field: formField, props: field })}
-              <FormMessage />
-            </FormItem>
-          )}
+          render={({ field: rhfField }) => {
+            return (
+              <FormItem>
+                <FormControl>
+                  <SathiSelect
+                    name={name}
+                    options={field.options}
+                    type="select"
+                    placeholder={placeholder}
+                    customClass={customClass}
+                    onChange={rhfField.onChange}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            );
+          }}
         />
       );
     }
+
+    const { customClass = { label: "", input: "" } } = field;
 
     if (type === "markdown") {
       return (
@@ -90,6 +97,7 @@ export const FormBuilder = <T extends FieldValues>({
         />
       );
     }
+
     return (
       <FormField
         key={name}

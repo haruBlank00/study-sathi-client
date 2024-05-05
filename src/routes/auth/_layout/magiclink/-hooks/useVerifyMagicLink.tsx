@@ -9,7 +9,7 @@ type VerifyMagicLinkParams = {
 
 export const useVerifyMagicLink = () => {
   const { isPending, mutate } = useMutation<
-    SuccessResponse,
+    SuccessResponse<{ message: string }>,
     ErrorResponse,
     VerifyMagicLinkParams
   >({

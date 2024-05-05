@@ -3,9 +3,9 @@ import { AxiosError, AxiosResponse } from "axios";
 /**
  * We define the success and error responses from our backend
  */
-export type SuccessResponse = AxiosResponse<{
+export type SuccessResponse<T> = AxiosResponse<{
   success: true;
-  data: { message: string };
+  data: T;
 }>;
 
 export type ErrorResponse = AxiosError<{
@@ -17,4 +17,4 @@ export type ErrorResponse = AxiosError<{
   };
 }>;
 
-export type ApiResponse = SuccessResponse | ErrorResponse;
+export type ApiResponse<T> = SuccessResponse<T> | ErrorResponse;
