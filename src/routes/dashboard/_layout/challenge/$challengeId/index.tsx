@@ -1,10 +1,10 @@
 import { SathiForm } from "@/components/form/sathi-form";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import "@mdxeditor/editor/style.css";
 import { createFileRoute } from "@tanstack/react-router";
 import { useForm } from "react-hook-form";
 import { challengeFields, challengeResolver } from "./-form/fields";
-
 export const Route = createFileRoute(
   "/dashboard/_layout/challenge/$challengeId/"
 )({
@@ -20,18 +20,16 @@ function ChallengePage() {
       description: "",
     },
   });
-
   const onSubmitHandler = () => {};
   return (
     <div>
       <h2>Take a new challenge :)</h2>
-
-      <Card className="p-6">
+      <Card className="p-6 w-full">
         <SathiForm
           fields={challengeFields}
           form={form}
           onSubmit={onSubmitHandler}
-          className="w-[30rem] flex flex-col gap-4"
+          className="flex flex-col gap-4"
         >
           <Button type="submit">Create a new challenge</Button>
         </SathiForm>

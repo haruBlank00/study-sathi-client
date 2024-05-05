@@ -19,7 +19,7 @@ export const challengeFields: InputField[] = [
     name: "description",
     label: "Description",
     placeholder: "30 days of discipline :p",
-    type: "text",
+    type: "markdown",
   },
 ];
 
