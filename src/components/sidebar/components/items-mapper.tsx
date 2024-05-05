@@ -19,7 +19,9 @@ const Item = ({ item }: { item: SideBarItem }) => {
       to={to}
       className="flex gap-2 p-4 capitalize hover:bg-yellow-200 transition "
       activeProps={{ className: "bg-yellow-200 shadow-md" }}
-      
+      activeOptions={{
+        exact: true,
+      }}
     >
       {icon}
       {label}
