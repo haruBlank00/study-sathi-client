@@ -5,21 +5,28 @@ import zod from "zod";
 export const challengeFields: InputField[] = [
   {
     name: "title",
-    label: "Name your challenge",
-    placeholder: "30 days of discipline :p",
+    label: "",
+    placeholder: "New challenge name here...",
     type: "text",
+    customClass: {
+      input: "h-full text-2xl px-0 font-semibold border-none shadow-none",
+    },
   },
   {
     name: "tags",
-    label: "Tags",
-    placeholder: "#coding, #typescript, #lifeLongLearning",
+    placeholder: "Add upto 4 tags...",
+    customClass: {
+      input: "h-full text-2xl px-0 font-semibold border-none shadow-none",
+    },
     type: "text",
   },
   {
     name: "description",
-    label: "Description",
     placeholder: "30 days of discipline :p",
     type: "markdown",
+    customClass: {
+      input: "h-96 shadow-md rounded-md",
+    },
   },
 ];
 

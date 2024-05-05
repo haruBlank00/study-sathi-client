@@ -44,6 +44,7 @@ type SathiEditorProps = {
   value: string;
   placeholder: string;
   onChange: (markdown: string) => void;
+  className?: string;
 };
 
 const Toolbars = () => (
@@ -122,11 +123,16 @@ const simpleSandpackConfig: SandpackConfig = {
   ],
 };
 
-function SathiEditor({ value, onChange, placeholder }: SathiEditorProps) {
+function SathiEditor({
+  value,
+  onChange,
+  placeholder,
+  className = "",
+}: SathiEditorProps) {
   const ref = useRef<MDXEditorMethods>(null);
   return (
     <MDXEditor
-      className="h-96"
+      className={className}
       placeholder={placeholder}
       contentEditableClassName="prose"
       ref={ref}

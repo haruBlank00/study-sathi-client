@@ -17,9 +17,19 @@ import SathiEditor from "../sathi-editor/sathi-editor";
 
 export interface InputField extends InputProps {
   name: string;
-  label: string;
+  label?: string;
   placeholder: string;
-  render?: ({ field }: { field: object }) => JSX.Element;
+  customClass?: {
+    label?: string;
+    input?: string;
+  };
+  render?: ({
+    field,
+    props,
+  }: {
+    field: object;
+    props: InputField;
+  }) => JSX.Element;
 }
 type FormBuilderProps<T extends FieldValues> = {
   fields: InputField[];
@@ -31,7 +41,30 @@ export const FormBuilder = <T extends FieldValues>({
   form,
 }: FormBuilderProps<T>) => {
   return fields.map((field) => {
-    const { label, name, placeholder, type } = field;
+    const {
+      label,
+      name,
+      placeholder,
+      type,
+      render,
+      customClass = { label: "", input: "" },
+    } = field;
+
+    if (render) {
+      return (
+        <FormField
+          key={name}
+          control={form.control}
+          name={name as Path<T>}
+          render={({ field: formField }) => (
+            <FormItem>
+              {render({ field: formField, props: field })}
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      );
+    }
 
     if (type === "markdown") {
       return (
@@ -40,12 +73,15 @@ export const FormBuilder = <T extends FieldValues>({
           control={form.control}
           name={name as Path<T>}
           render={({ field }) => {
-            console.log(field.value);
             return (
               <FormItem>
-                <FormLabel>{label}</FormLabel>
+                <FormLabel className={customClass.label}>{label}</FormLabel>
                 <FormControl>
-                  <SathiEditor {...field} placeholder="Type here..." />
+                  <SathiEditor
+                    {...field}
+                    placeholder="Type here..."
+                    className={customClass.input}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -61,9 +97,14 @@ export const FormBuilder = <T extends FieldValues>({
         name={name as Path<T>}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{label}</FormLabel>
+            <FormLabel className={customClass.label}>{label}</FormLabel>
             <FormControl>
-              <Input {...field} placeholder={placeholder} type={type} />
+              <Input
+                {...field}
+                placeholder={placeholder}
+                type={type}
+                className={customClass.input}
+              />
             </FormControl>
             <FormMessage />
           </FormItem>

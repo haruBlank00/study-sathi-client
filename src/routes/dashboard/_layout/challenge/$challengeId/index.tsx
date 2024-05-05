@@ -24,14 +24,17 @@ function ChallengePage() {
   return (
     <div>
       <h2>Take a new challenge :)</h2>
-      <Card className="p-6 w-full">
+      <Card className="w-full px-6 py-8">
         <SathiForm
           fields={challengeFields}
           form={form}
           onSubmit={onSubmitHandler}
-          className="flex flex-col gap-4"
+          className="flex flex-col"
         >
-          <Button type="submit">Create a new challenge</Button>
+          <div className="flex gap-4 mt-8">
+            <Button type="submit">Create a new challenge</Button>
+            <Button variant={"outline"}>Save Draft</Button>
+          </div>
         </SathiForm>
       </Card>
     </div>
