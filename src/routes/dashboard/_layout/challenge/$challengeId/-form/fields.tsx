@@ -1,10 +1,9 @@
-import { InputField } from "@/components/form/form-builder";
-import { SathiSelectField } from "@/components/sathi-select/sathi-select";
-import { getFieldSchema } from "@/lib/utils";
+import { Field } from "@/components/form/types";
+import { getFieldDefault, getFieldSchema } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import zod from "zod";
-export const challengeFields: (InputField | SathiSelectField)[] = [
+export const challengeFields: Field[] = [
   {
     name: "name",
     label: "",
@@ -14,11 +13,13 @@ export const challengeFields: (InputField | SathiSelectField)[] = [
       input: "h-full text-2xl px-0 font-semibold border-none shadow-none",
     },
     schema: zod.string().min(1, { message: "Please enter a challenge name." }),
+    default: "",
   },
   {
     name: "days",
     placeholder: "Enter number of days",
     type: "number",
+    default: undefined,
     customClass: {
       input: "h-full text-2xl px-0 font-semibold border-none shadow-none",
     },
@@ -32,6 +33,7 @@ export const challengeFields: (InputField | SathiSelectField)[] = [
     name: "privacy",
     type: "select",
     placeholder: "Public / Private",
+    default: "",
     customClass: {
       input:
         "h-full text-2xl px-0 font-semibold border-none shadow-none text-gray-500",
@@ -66,12 +68,14 @@ export const challengeFields: (InputField | SathiSelectField)[] = [
     customClass: {
       input: "h-full text-2xl px-0 font-semibold border-none shadow-none",
     },
+    default: "",
     type: "text",
     schema: zod.string().min(1, {
       message: "Please enter at least one tag for your challenge.",
     }),
   },
   {
+    default: "",
     name: "description",
     placeholder: "30 days of discipline :p",
     type: "markdown",
@@ -85,6 +89,7 @@ export const challengeFields: (InputField | SathiSelectField)[] = [
 ];
 
 const chellengeSchema = getFieldSchema(challengeFields);
+export const defaultValues = getFieldDefault(challengeFields);
 
 export const challengeResolver = zodResolver(chellengeSchema);
 export type TChallengeSchema = zod.infer<typeof chellengeSchema>;

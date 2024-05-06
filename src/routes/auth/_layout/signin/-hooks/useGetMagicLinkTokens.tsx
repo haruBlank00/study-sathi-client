@@ -7,30 +7,27 @@ type MagicLinkParams = {
 };
 
 export const useGetMagicTokens = () => {
-  const { data, error, mutateAsync, isSuccess, isError, isPending } =
-    useMutation<
-      SuccessResponse<{ message: string }>,
-      ErrorResponse,
-      MagicLinkParams
-    >({
-      mutationFn: ({ email }: MagicLinkParams) => {
-        return getMagicLinkTokens({ email });
-      },
-      onError: (err) => {
-        if (err.response) {
-          const { error } = err.response.data;
-          toast.error(error.message);
-        }
-      },
-      onSuccess: (data) => {
-        toast.success(data.data.data.message);
-      },
-    });
+  const { data, error, mutate, isSuccess, isError, isPending } = useMutation<
+    SuccessResponse<{ message: string }>,
+    ErrorResponse,
+    MagicLinkParams
+  >({
+    mutationFn: ({ email }: MagicLinkParams) => getMagicLinkTokens({ email }),
+    onError: (err) => {
+      if (err.response) {
+        const { error } = err.response.data;
+        toast.error(error.message);
+      }
+    },
+    onSuccess: (data) => {
+      toast.success(data.data.data.message);
+    },
+  });
 
   return {
     data,
     error,
-    getMagicTokens: mutateAsync,
+    getMagicTokens: mutate,
     isSuccess,
     isError,
     isPending,

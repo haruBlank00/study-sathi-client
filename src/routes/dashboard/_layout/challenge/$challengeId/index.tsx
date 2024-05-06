@@ -8,8 +8,10 @@ import {
   TChallengeSchema,
   challengeFields,
   challengeResolver,
+  defaultValues,
 } from "./-form/fields";
 import { useCreateChallenge } from "./-hooks/useCreateChallenge";
+
 export const Route = createFileRoute(
   "/dashboard/_layout/challenge/$challengeId/"
 )({
@@ -19,13 +21,7 @@ export const Route = createFileRoute(
 function ChallengePage() {
   const form = useForm({
     resolver: challengeResolver,
-    defaultValues: {
-      name: "",
-      tags: "",
-      description: "",
-      days: undefined,
-      privacy: "",
-    },
+    defaultValues: defaultValues,
   });
   const { challenge, createChallenge, isChallengeCreating } =
     useCreateChallenge();

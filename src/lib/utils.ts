@@ -1,6 +1,5 @@
-import { InputField } from "@/components/form/form-builder";
-import { SathiSelectField } from "@/components/sathi-select/sathi-select";
-import { type ClassValue, clsx } from "clsx";
+import { Field } from "@/components/form/types";
+import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import zod from "zod";
 export function cn(...inputs: ClassValue[]) {
@@ -11,7 +10,7 @@ export function cryptoId() {
   return crypto.randomUUID();
 }
 
-export function getFieldSchema(schema: (InputField | SathiSelectField)[]) {
+export function getFieldSchema(schema: Field[]) {
   const fieldSchema = schema.reduce((acc, curr) => {
     const { name, schema } = curr;
     return {
@@ -20,4 +19,14 @@ export function getFieldSchema(schema: (InputField | SathiSelectField)[]) {
     };
   }, {});
   return zod.object(fieldSchema);
+}
+
+export function getFieldDefault(fields: Field[]) {
+  const fieldDefault = fields.reduce((acc, curr) => {
+    return {
+      ...acc,
+      [curr.name]: curr.default,
+    };
+  }, {});
+  return fieldDefault;
 }

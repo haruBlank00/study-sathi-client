@@ -5,34 +5,14 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input, InputProps } from "@/components/ui/input";
-import {
-  // ControllerRenderProps,
-  FieldValues,
-  Path,
-  UseFormReturn,
-} from "react-hook-form";
+import { Input } from "@/components/ui/input";
+import { FieldValues, Path, UseFormReturn } from "react-hook-form";
 import SathiEditor from "../sathi-editor/sathi-editor";
-import { SathiSelectField, SathiSelect } from "../sathi-select/sathi-select";
-// Assuming Path<T> is a generic type
+import { SathiSelect } from "../sathi-select/sathi-select";
+import { Field } from "./types";
 
-export interface FormField {
-  name: string;
-  label?: string;
-  schema: Zod.Schema;
-}
-
-export interface InputField extends FormField, InputProps {
-  name: string;
-  type: "text" | "number" | "markdown" | "email";
-  placeholder?: string;
-  customClass?: {
-    label?: string;
-    input?: string;
-  };
-}
 type FormBuilderProps<T extends FieldValues> = {
-  fields: (InputField | SathiSelectField)[];
+  fields: Field[];
   form: UseFormReturn<T>;
 };
 
@@ -55,7 +35,7 @@ export const FormBuilder = <T extends FieldValues>({
               <FormItem>
                 <FormControl>
                   <SathiSelect
-                    name={name}
+                    name={name as Path<T>}
                     options={field.options}
                     type="select"
                     placeholder={placeholder}

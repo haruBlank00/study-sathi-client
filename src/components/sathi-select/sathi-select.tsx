@@ -7,7 +7,7 @@ import {
   SelectLabel,
   SelectItem,
 } from "@/components/ui/select";
-import { FormField } from "@/components/form/form-builder";
+import { FormField } from "../form/types";
 
 type SathiSelectOption = {
   value: string;
@@ -23,7 +23,8 @@ export interface SathiSelectField extends FormField {
   };
 }
 
-interface SathiSelectProps extends Omit<SathiSelectField, "schema"> {
+interface SathiSelectProps
+  extends Omit<Omit<SathiSelectField, "schema">, "default"> {
   onChange: (value: string) => void;
 }
 export const SathiSelect = ({
