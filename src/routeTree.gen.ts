@@ -13,6 +13,7 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as IndexImport } from './routes/index'
 import { Route as DashboardLayoutImport } from './routes/dashboard/_layout'
 import { Route as AuthLayoutImport } from './routes/auth/_layout'
 import { Route as DashboardLayoutIndexImport } from './routes/dashboard/_layout/index'
@@ -37,6 +38,11 @@ const DashboardRoute = DashboardImport.update({
 
 const AuthRoute = AuthImport.update({
   path: '/auth',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const IndexRoute = IndexImport.update({
+  path: '/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -83,6 +89,10 @@ const DashboardLayoutChallengeChallengeIdIndexRoute =
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/': {
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
     '/auth': {
       preLoaderRoute: typeof AuthImport
       parentRoute: typeof rootRoute
@@ -125,6 +135,7 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren([
+  IndexRoute,
   AuthRoute.addChildren([
     AuthLayoutRoute.addChildren([
       AuthLayoutSigninRouteLazyRoute,

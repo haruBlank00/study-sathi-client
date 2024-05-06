@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import { useAuthStore } from "@/hooks/auth";
+import { useAuthStore } from "@/hooks/auth/useAuthStore";
 import axiosInstance from "@/lib/axios";
 import { AxiosInstance, InternalAxiosRequestConfig } from "axios";
 import React, { createContext, useEffect } from "react";

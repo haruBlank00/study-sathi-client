@@ -1,4 +1,4 @@
-import { useAuthStore } from "@/hooks/auth";
+import { useAuthStore } from "@/hooks/auth/useAuthStore";
 import apiInstance from "@/lib/axios";
 import {
   Navigate,
