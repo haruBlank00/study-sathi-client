@@ -64,5 +64,6 @@ export const useAuthStore = () => {
   const tokens = authStore((state) => state.tokens);
 
   const updateAuthStatus = authStore((state) => state.updateAuthStatus);
-  return { authStatus, updateAuthStatus, isAuthenticated, tokens };
+  const updateToken = authStore((state) => state.updateToken);
+  return { authStatus, updateAuthStatus, isAuthenticated, tokens, updateToken };
 };

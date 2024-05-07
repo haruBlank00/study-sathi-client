@@ -1,8 +1,8 @@
 import { CheckEmailForLogin } from "@/components/login/check-email";
-import { Sidebar } from "@/components/sidebar/sidebar";
 import { authStore, useAuthStore } from "@/store/auth/authStore";
 import { useUserStore } from "@/store/auth/userStore";
 import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
+import { Sidebar } from "./-components/sidebar/sidebar";
 
 export const Route = createFileRoute("/dashboard/_layout")({
   beforeLoad: async ({ location }) => {

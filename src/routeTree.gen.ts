@@ -14,6 +14,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
+import { Route as ByebyeIndexImport } from './routes/byebye/index'
 import { Route as DashboardLayoutImport } from './routes/dashboard/_layout'
 import { Route as AuthLayoutImport } from './routes/auth/_layout'
 import { Route as DashboardLayoutIndexImport } from './routes/dashboard/_layout/index'
@@ -43,6 +44,11 @@ const AuthRoute = AuthImport.update({
 
 const IndexRoute = IndexImport.update({
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ByebyeIndexRoute = ByebyeIndexImport.update({
+  path: '/byebye/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -109,6 +115,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardLayoutImport
       parentRoute: typeof DashboardRoute
     }
+    '/byebye/': {
+      preLoaderRoute: typeof ByebyeIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/auth/_layout/signin': {
       preLoaderRoute: typeof AuthLayoutSigninRouteLazyImport
       parentRoute: typeof AuthLayoutImport
@@ -149,6 +159,7 @@ export const routeTree = rootRoute.addChildren([
       DashboardLayoutChallengeChallengeIdIndexRoute,
     ]),
   ]),
+  ByebyeIndexRoute,
 ])
 
 /* prettier-ignore-end */

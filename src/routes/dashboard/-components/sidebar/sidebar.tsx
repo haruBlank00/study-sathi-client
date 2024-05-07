@@ -1,9 +1,9 @@
 import { Separator } from "@/components/ui/separator";
-import { LogOut } from "lucide-react";
-import { SathiAvatar } from "../sathi-avatar/sathi-avatar";
 import { Burger } from "./components/burger";
+import { ConfirmLogoutModal } from "./components/confirm-logout-modal";
 import { ItemsMapper } from "./components/items-mapper";
 import { sidebarData } from "./data";
+import { SathiAvatar } from "@/components/sathi-avatar/sathi-avatar";
 
 export const Sidebar = () => {
   return (
@@ -20,10 +20,7 @@ export const Sidebar = () => {
           <ItemsMapper items={sidebarData} />
         </div>
 
-        <footer className="flex gap-2 justify-between cursor-pointer mt-auto p-4 capitalize hover:bg-yellow-200 transition">
-          Logout
-          <LogOut />
-        </footer>
+        <ConfirmLogoutModal />
       </div>
     </div>
   );
