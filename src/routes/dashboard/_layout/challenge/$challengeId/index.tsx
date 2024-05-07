@@ -28,6 +28,7 @@ function ChallengePage() {
 
   console.log({ challenge });
   const onSubmitHandler = (data: TChallengeSchema) => {
+    ///
     console.log({ data });
     createChallenge(data);
   };

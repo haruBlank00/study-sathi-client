@@ -1,44 +1,43 @@
 import {
-  MDXEditor,
-  MDXEditorMethods,
-  UndoRedo,
-  BoldItalicUnderlineToggles,
-  ListsToggle,
-  Separator,
+  AdmonitionDirectiveDescriptor,
   BlockTypeSelect,
+  BoldItalicUnderlineToggles,
+  ChangeCodeMirrorLanguage,
+  ConditionalContents,
   CreateLink,
+  InsertAdmonition,
+  InsertCodeBlock,
   InsertImage,
+  InsertSandpack,
   InsertTable,
   InsertThematicBreak,
-  InsertCodeBlock,
+  ListsToggle,
+  MDXEditor,
+  MDXEditorMethods,
+  SandpackConfig,
+  Separator,
+  ShowSandpackInfo,
+  UndoRedo,
   codeBlockPlugin,
   codeMirrorPlugin,
-  SandpackConfig,
   sandpackPlugin,
-  ConditionalContents,
-  ChangeCodeMirrorLanguage,
-  ShowSandpackInfo,
-  InsertSandpack,
-  InsertAdmonition,
-  AdmonitionDirectiveDescriptor,
 } from "@mdxeditor/editor";
 
 import {
-  toolbarPlugin,
-  listsPlugin,
-  headingsPlugin,
-  linkPlugin,
-  linkDialogPlugin,
-  imagePlugin,
-  quotePlugin,
-  markdownShortcutPlugin,
-  tablePlugin,
   directivesPlugin,
-  //   diffSourcePlugin,
+  headingsPlugin,
+  imagePlugin,
+  linkDialogPlugin,
+  linkPlugin,
+  listsPlugin,
+  markdownShortcutPlugin,
+  quotePlugin,
+  tablePlugin,
+  toolbarPlugin,
 } from "@mdxeditor/editor";
 
 import "@mdxeditor/editor/style.css";
-import { useRef } from "react";
+import React from "react";
 
 type SathiEditorProps = {
   value: string;
@@ -123,47 +122,41 @@ const simpleSandpackConfig: SandpackConfig = {
   ],
 };
 
-function SathiEditor({
-  value,
-  onChange,
-  placeholder,
-  className = "",
-}: SathiEditorProps) {
-  const ref = useRef<MDXEditorMethods>(null);
+export const SathiEditor = React.forwardRef<MDXEditorMethods, SathiEditorProps>(
+  ({ onChange, placeholder, value, className }, ref) => {
+    return (
+      <MDXEditor
+        ref={ref}
+        className={className}
+        placeholder={placeholder}
+        contentEditableClassName="prose"
+        markdown={value}
+        onChange={onChange}
+        plugins={[
+          toolbarPlugin({
+            toolbarContents: () => <Toolbars />,
+          }),
+          headingsPlugin(),
+          listsPlugin(),
+          linkPlugin(),
+          linkDialogPlugin(),
+          quotePlugin(),
+          imagePlugin(),
+          tablePlugin(),
 
-  return (
-    <MDXEditor
-      className={className}
-      placeholder={placeholder}
-      contentEditableClassName="prose"
-      ref={ref}
-      markdown={value}
-      onChange={onChange}
-      plugins={[
-        toolbarPlugin({
-          toolbarContents: () => <Toolbars />,
-        }),
-        headingsPlugin(),
-        listsPlugin(),
-        linkPlugin(),
-        linkDialogPlugin(),
-        quotePlugin(),
-        imagePlugin(),
-        tablePlugin(),
+          codeBlockPlugin({ defaultCodeBlockLanguage: "js" }),
+          sandpackPlugin({ sandpackConfig: simpleSandpackConfig }),
+          codeMirrorPlugin({
+            codeBlockLanguages: { js: "JavaScript", css: "CSS" },
+          }),
 
-        codeBlockPlugin({ defaultCodeBlockLanguage: "js" }),
-        sandpackPlugin({ sandpackConfig: simpleSandpackConfig }),
-        codeMirrorPlugin({
-          codeBlockLanguages: { js: "JavaScript", css: "CSS" },
-        }),
-
-        directivesPlugin({
-          directiveDescriptors: [AdmonitionDirectiveDescriptor],
-        }),
-        markdownShortcutPlugin(),
-      ]}
-    />
-  );
-}
-
+          directivesPlugin({
+            directiveDescriptors: [AdmonitionDirectiveDescriptor],
+          }),
+          markdownShortcutPlugin(),
+        ]}
+      />
+    );
+  }
+);
 export default SathiEditor;

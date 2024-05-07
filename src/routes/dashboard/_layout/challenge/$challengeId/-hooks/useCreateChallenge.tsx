@@ -25,7 +25,7 @@ export const useCreateChallenge = () => {
   const createChallenge = async (data: TChallengeSchema) => {
     const result = await axios({
       method: "POST",
-      url: "/challenge",
+      url: "/challenges",
       data: data,
     });
     console.log({ result });

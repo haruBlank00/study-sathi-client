@@ -1,11 +1,13 @@
-import { InputProps } from "@/components/ui/input";
 import { SathiSelectField } from "@/components/sathi-select/sathi-select";
+import { InputProps } from "@/components/ui/input";
+import { TagsField } from "./tags-field";
 
 export interface FormField {
   name: string;
   label?: string;
   schema: Zod.Schema;
   default: unknown;
+  placeholder?: string;
 }
 
 export interface InputField extends FormField, InputProps {
@@ -18,4 +20,4 @@ export interface InputField extends FormField, InputProps {
   };
 }
 
-export type Field = InputField | SathiSelectField;
+export type Field = InputField | SathiSelectField | TagsField;

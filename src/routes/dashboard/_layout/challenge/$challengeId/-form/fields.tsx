@@ -65,12 +65,9 @@ export const challengeFields: Field[] = [
   {
     name: "tags",
     placeholder: "Add upto 4 tags...",
-    customClass: {
-      input: "h-full text-2xl px-0 font-semibold border-none shadow-none",
-    },
-    default: "",
-    type: "text",
-    schema: zod.string().min(1, {
+    default: [],
+    type: "tags",
+    schema: zod.string().array().min(1, {
       message: "Please enter at least one tag for your challenge.",
     }),
   },
