@@ -4,8 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Github } from "@/components/ui/icons/github";
 import { Google } from "@/components/ui/icons/google";
 import { Separator } from "@/components/ui/separator";
-import { useAuthStore } from "@/hooks/auth/useAuthStore";
-import { Navigate, createLazyFileRoute } from "@tanstack/react-router";
+import { createLazyFileRoute } from "@tanstack/react-router";
 import { useForm } from "react-hook-form";
 import { loginFields } from "./-form/fields";
 import { TLoginSchema, loginResolver } from "./-form/login.schema";
@@ -25,17 +24,12 @@ function LoginPage() {
   });
 
   const { getMagicTokens, isPending } = useGetMagicTokens();
-  const { isAuthenticated } = useAuthStore();
   const onLoginHandler = (data: TLoginSchema) => {
     getMagicTokens({
       email: data.email,
     });
   };
-
-  if (isAuthenticated) {
-    return <Navigate to="/dashboard" />;
-  }
-
+  
   return (
     <div className="h-screen grid place-items-center">
       <Card className="w-[32rem] ">

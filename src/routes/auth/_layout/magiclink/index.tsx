@@ -1,12 +1,6 @@
-import { useAuthStore } from "@/hooks/auth/useAuthStore";
 import apiInstance from "@/lib/axios";
-import {
-  Navigate,
-  createFileRoute,
-  redirect,
-  useLoaderData,
-} from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useAuthStore } from "@/store/auth/authStore";
+import { Navigate, createFileRoute, redirect } from "@tanstack/react-router";
 import { z } from "zod";
 import { VerifyMagicResponse } from "./-types";
 
@@ -41,17 +35,8 @@ export const Route = createFileRoute("/auth/_layout/magiclink/")({
 });
 
 function MagicLinkPage() {
-  const { accessToken, refreshToken } = useLoaderData({
-    from: "/auth/_layout/magiclink/",
-  });
-  const { setAuthData } = useAuthStore();
+  const { updateAuthStatus } = useAuthStore();
+  updateAuthStatus("authenticated");
 
-  useEffect(() => {
-    setAuthData({
-      isAuthenticated: true,
-      accessToken,
-      refreshToken,
-    });
-  }, []);
   return <Navigate to="/dashboard" />;
 }

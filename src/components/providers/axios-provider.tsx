@@ -1,13 +1,16 @@
 /* eslint-disable react-refresh/only-export-components */
-import { useAuthStore } from "@/hooks/auth/useAuthStore";
 import axiosInstance from "@/lib/axios";
+import { useAuthStore } from "@/store/auth/authStore";
 import { AxiosInstance, InternalAxiosRequestConfig } from "axios";
 import React, { createContext, useEffect } from "react";
 
 export const axiosContext = createContext<AxiosInstance>(axiosInstance);
 
 export const AxiosProvider = ({ children }: { children: React.ReactNode }) => {
-  const { accessToken, isAuthenticated } = useAuthStore();
+  const {
+    isAuthenticated,
+    tokens: { access },
+  } = useAuthStore();
 
   const onFulfilled = (config: InternalAxiosRequestConfig) => {
     if (!isAuthenticated) return config;
@@ -15,7 +18,7 @@ export const AxiosProvider = ({ children }: { children: React.ReactNode }) => {
     return {
       ...config,
       headers: {
-        Authorization: "Bearer " + accessToken,
+        Authorization: "Bearer " + access,
       },
     } as unknown as InternalAxiosRequestConfig;
   };
