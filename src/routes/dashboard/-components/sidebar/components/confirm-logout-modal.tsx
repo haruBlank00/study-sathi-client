@@ -1,41 +1,49 @@
-import { Modal } from "@/components/modal/modal";
 import { Button } from "@/components/ui/button";
-import { DialogClose, DialogFooter } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { useLogout } from "@/routes/dashboard/-hooks/useLogout";
 import { LogOut } from "lucide-react";
-
 export const ConfirmLogoutModal = () => {
   const { logout } = useLogout();
   const onSubmitHandler = () => {
     logout();
   };
-  const Trigger = () => {
-    return (
-      <footer className="flex gap-2 justify-between cursor-pointer mt-auto p-4 capitalize hover:bg-yellow-200 transition">
-        Logout
-        <LogOut />
-      </footer>
-    );
-  };
+
   return (
-    <Modal
-      description="Are you sure you want to logout?"
-      title="Logout"
-      trigger={<Trigger />}
-    >
-      <div>Are you sure you want to logout?</div>
+    <Dialog>
+      <DialogTrigger asChild>
+        <footer className="flex gap-2 justify-between cursor-pointer mt-auto p-4 capitalize hover:bg-yellow-200 transition">
+          Logout
+          <LogOut />
+        </footer>
+      </DialogTrigger>
 
-      <DialogFooter className="sm:justify-start">
-        <form onSubmit={onSubmitHandler}>
-          <Button type="submit">Confirm</Button>
-        </form>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle> Are you sure you want to logout?</DialogTitle>
+        </DialogHeader>
 
-        <DialogClose asChild>
-          <Button type="button" variant="secondary">
-            Cancel
-          </Button>
-        </DialogClose>
-      </DialogFooter>
-    </Modal>
+        <div>Are you sure you want to logout?</div>
+
+        <DialogFooter className="sm:justify-start">
+          <form onSubmit={onSubmitHandler}>
+            <Button type="submit">Confirm</Button>
+          </form>
+
+          <DialogClose asChild>
+            <Button type="button" variant="secondary">
+              Cancel
+            </Button>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 };
