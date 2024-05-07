@@ -7,35 +7,50 @@ import { persist } from "zustand/middleware";
 //   LOADING = "loading",
 // }
 
+import { produce } from "immer";
 export type AUTH_STATUS = "unauthenticated" | "authenticated" | "loading";
 
+type Tokens = {
+  access: string;
+  refresh: string;
+};
 type State = {
   authStatus: AUTH_STATUS;
   isAuthenticated: boolean;
-  tokens: {
-    access: string;
-    refresh: string;
-  };
+  tokens: Tokens;
 };
 
 type Actions = {
   updateAuthStatus: (status: AUTH_STATUS) => void;
+  updateToken: (tokens: Tokens) => void;
 };
 
 export const authStore = create<State & Actions>()(
   persist(
     zustyMiddleware((set) => ({
+      // *** STATE ***
       authStatus: "unauthenticated",
       isAuthenticated: false,
       tokens: {
         access: "",
         refresh: "",
       },
+
+      // *** ACTIONS***
       updateAuthStatus: (status) =>
-        set({
-          authStatus: status,
-          isAuthenticated: status === "authenticated",
-        }),
+        set((state) =>
+          produce(state, (draft) => {
+            draft.authStatus = status;
+            draft.isAuthenticated = status === "authenticated";
+          })
+        ),
+
+      updateToken: (tokens) =>
+        set((state) =>
+          produce(state, (draft) => {
+            draft.tokens = tokens;
+          })
+        ),
     })),
     {
       name: "study-auth-store",

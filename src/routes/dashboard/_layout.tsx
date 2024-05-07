@@ -11,7 +11,8 @@ export const Route = createFileRoute("/dashboard/_layout")({
     const isAuthLoading = authStore.getState().authStatus === "loading";
     const skipAuth = isGoinToDashboard && isAuthLoading;
 
-    if (!skipAuth) {
+    const isAuthenticated = authStore.getState().isAuthenticated;
+    if (!skipAuth && !isAuthenticated) {
       throw redirect({
         to: "/auth/signin/",
         search: {
@@ -34,7 +35,7 @@ export function DashboardPage() {
   }
 
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 h-screen">
       <Sidebar />
       <div className="p-4 flex-1">
         <Outlet />

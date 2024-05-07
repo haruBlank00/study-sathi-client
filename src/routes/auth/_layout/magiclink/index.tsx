@@ -1,5 +1,5 @@
 import apiInstance from "@/lib/axios";
-import { useAuthStore } from "@/store/auth/authStore";
+import { authStore, useAuthStore } from "@/store/auth/authStore";
 import { Navigate, createFileRoute, redirect } from "@tanstack/react-router";
 import { z } from "zod";
 import { VerifyMagicResponse } from "./-types";
@@ -15,6 +15,8 @@ export const Route = createFileRoute("/auth/_layout/magiclink/")({
   loaderDeps: ({ search: { email, token } }) => ({ email, token }),
   loader: async ({ deps: { email, token } }) => {
     try {
+      const updateToken = authStore.getState().updateToken;
+      const updateAuthStatus = authStore.getState().updateAuthStatus;
       const response = await apiInstance<VerifyMagicResponse>({
         method: "POST",
         url: "magic/verify",
@@ -23,7 +25,11 @@ export const Route = createFileRoute("/auth/_layout/magiclink/")({
           token,
         },
       });
-      return response.data.data.tokens;
+      const { accessToken: access, refreshToken: refresh } =
+        response.data.data.tokens;
+
+      updateToken({ access, refresh });
+      updateAuthStatus("authenticated");
     } catch (error) {
       redirect({
         to: "/auth/signin",

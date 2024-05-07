@@ -11,7 +11,7 @@ export const ItemsMapper = ({ items }: ItemsMapperProps) => {
   });
 };
 
-const Item = ({ item }: { item: SideBarItem }) => {
+export const Item = ({ item }: { item: SideBarItem }) => {
   const { icon, label, to } = item;
 
   return (
