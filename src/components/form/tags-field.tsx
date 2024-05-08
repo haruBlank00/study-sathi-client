@@ -54,13 +54,6 @@ export const TagsField = ({
 
     // if the last character is "," and the second last character is " ", we assume the user has finished entering the tag
     const tagConditionIsMet = secondtoLastChar === "," && lastChar === " ";
-    console.log({
-      lastCharPos,
-      lastChar,
-      secondtoLastChar,
-      tagConditionIsMet,
-      value,
-    });
     if (tagConditionIsMet) {
       const sanitizedValue = value.slice(0, -2); // we remove commana and whitespace
       addTagToArray(sanitizedValue);
@@ -72,7 +65,6 @@ export const TagsField = ({
 
   const onKeyPressHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      console.log("not here");
       e.preventDefault();
       addTagToArray(tag);
       setTag("");

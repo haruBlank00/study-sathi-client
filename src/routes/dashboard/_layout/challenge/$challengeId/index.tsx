@@ -23,15 +23,18 @@ function ChallengePage() {
     resolver: challengeResolver,
     defaultValues: defaultValues,
   });
-  const { challenge, createChallenge, isChallengeCreating } =
-    useCreateChallenge();
+  const { createChallenge, isChallengeCreating } = useCreateChallenge();
 
-  console.log({ challenge });
   const onSubmitHandler = (data: TChallengeSchema) => {
-    ///
     console.log({ data });
-    createChallenge(data);
+    createChallenge(data, {
+      onError: (e) => {
+        const data = e.response?.data?.error;
+        console.log({ data, e });
+      },
+    });
   };
+
   return (
     <div>
       <h2>Take a new challenge :)</h2>

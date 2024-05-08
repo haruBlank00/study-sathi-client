@@ -8,11 +8,11 @@ export type SuccessResponse<T> = AxiosResponse<{
   data: T;
 }>;
 
-export type ErrorResponse = AxiosError<{
+export type ErrorResponse<T = string> = AxiosError<{
   statusCode: number;
   success: false;
   error: {
-    message: string;
+    message: T;
     name: string;
   };
 }>;

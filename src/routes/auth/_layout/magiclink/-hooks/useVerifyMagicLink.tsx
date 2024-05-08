@@ -18,7 +18,8 @@ export const useVerifyMagicLink = () => {
       return verifyMagicLink({ email, token });
     },
     onError: (err) => {
-      console.log({ err });
+      // TODO: handle error
+      err;
     },
     // onSuccess: () => {
     //   navigate.

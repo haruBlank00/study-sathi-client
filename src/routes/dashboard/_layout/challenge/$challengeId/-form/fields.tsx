@@ -27,7 +27,8 @@ export const challengeFields: Field[] = [
       .string({
         required_error: "Please enter number of days",
       })
-      .min(1),
+      .min(1)
+      .transform((value) => Number(value)),
   },
   {
     name: "privacy",
@@ -50,7 +51,6 @@ export const challengeFields: Field[] = [
     ],
     schema: zod.string().refine(
       (value) => {
-        console.log({ value }, "from schema");
         const result = zod.enum(["public", "private"]).safeParse(value);
         if (result.success) {
           return result.data;
