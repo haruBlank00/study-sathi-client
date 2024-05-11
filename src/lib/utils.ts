@@ -10,8 +10,8 @@ export function cryptoId() {
   return crypto.randomUUID();
 }
 
-export function getFieldSchema(schema: Field[]) {
-  const fieldSchema = schema.reduce((acc, curr) => {
+export function getFieldSchema(schemas: Field[]) {
+  const fieldSchema = schemas.reduce((acc, curr) => {
     const { name, schema } = curr;
     return {
       ...acc,
@@ -21,7 +21,7 @@ export function getFieldSchema(schema: Field[]) {
   return zod.object(fieldSchema);
 }
 
-export function getFieldDefault(fields: Field[]) {
+export function getFieldDefault(fields: Field[]): { ok: "fuck" } {
   const fieldDefault = fields.reduce((acc, curr) => {
     return {
       ...acc,
@@ -29,4 +29,8 @@ export function getFieldDefault(fields: Field[]) {
     };
   }, {});
   return fieldDefault;
+}
+
+export function ID() {
+  return crypto.randomUUID();
 }

@@ -5,7 +5,10 @@ import { AxiosError, AxiosResponse } from "axios";
  */
 export type SuccessResponse<T> = AxiosResponse<{
   success: true;
-  data: T;
+  data: {
+    // [key: string]: T;
+    [key: string]: Record<string, T>;
+  };
 }>;
 
 export type ErrorResponse<T = string> = AxiosError<{

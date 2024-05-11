@@ -14,6 +14,7 @@ import {
   ListsToggle,
   MDXEditor,
   MDXEditorMethods,
+  MDXEditorProps,
   SandpackConfig,
   Separator,
   ShowSandpackInfo,
@@ -39,13 +40,7 @@ import {
 import "@mdxeditor/editor/style.css";
 import React from "react";
 
-type SathiEditorProps = {
-  value: string;
-  placeholder: string;
-  onChange: (markdown: string) => void;
-  className?: string;
-};
-
+type SathiEditorProps = MDXEditorProps;
 const Toolbars = () => (
   <>
     <UndoRedo />
@@ -123,38 +118,46 @@ const simpleSandpackConfig: SandpackConfig = {
 };
 
 export const SathiEditor = React.forwardRef<MDXEditorMethods, SathiEditorProps>(
-  ({ onChange, placeholder, value, className }, ref) => {
+  ({ onChange, placeholder, markdown, className, readOnly }, ref) => {
+    const plugins = [
+      headingsPlugin(),
+      listsPlugin(),
+      linkPlugin(),
+      linkDialogPlugin(),
+      quotePlugin(),
+      imagePlugin(),
+      tablePlugin(),
+
+      codeBlockPlugin({ defaultCodeBlockLanguage: "js" }),
+      sandpackPlugin({ sandpackConfig: simpleSandpackConfig }),
+      codeMirrorPlugin({
+        codeBlockLanguages: { js: "JavaScript", css: "CSS" },
+      }),
+
+      directivesPlugin({
+        directiveDescriptors: [AdmonitionDirectiveDescriptor],
+      }),
+      markdownShortcutPlugin(),
+    ];
+
+    if (!readOnly) {
+      plugins.push(
+        toolbarPlugin({
+          toolbarContents: () => !readOnly && <Toolbars />,
+        })
+      );
+    }
+
     return (
       <MDXEditor
         ref={ref}
         className={className}
         placeholder={placeholder}
         contentEditableClassName="prose"
-        markdown={value}
+        markdown={markdown}
         onChange={onChange}
-        plugins={[
-          toolbarPlugin({
-            toolbarContents: () => <Toolbars />,
-          }),
-          headingsPlugin(),
-          listsPlugin(),
-          linkPlugin(),
-          linkDialogPlugin(),
-          quotePlugin(),
-          imagePlugin(),
-          tablePlugin(),
-
-          codeBlockPlugin({ defaultCodeBlockLanguage: "js" }),
-          sandpackPlugin({ sandpackConfig: simpleSandpackConfig }),
-          codeMirrorPlugin({
-            codeBlockLanguages: { js: "JavaScript", css: "CSS" },
-          }),
-
-          directivesPlugin({
-            directiveDescriptors: [AdmonitionDirectiveDescriptor],
-          }),
-          markdownShortcutPlugin(),
-        ]}
+        readOnly={readOnly}
+        plugins={plugins}
       />
     );
   }

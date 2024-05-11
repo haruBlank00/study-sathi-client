@@ -25,6 +25,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "strictNullChecks": true,
 
     "typeRoots": ["node_modules/@types", "src/types"]
   },

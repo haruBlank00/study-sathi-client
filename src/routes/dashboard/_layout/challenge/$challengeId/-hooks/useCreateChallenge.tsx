@@ -13,7 +13,13 @@ export const useCreateChallenge = () => {
     TChallengeSchema
   >({
     mutationKey: ["create-challenge"],
-    mutationFn: (data) => createChallenge(data),
+    mutationFn: (data) => {
+      const { days } = data;
+      return createChallenge({
+        ...data,
+        days: Number(days),
+      });
+    },
     onSuccess: (data) => {
       console.log({ data });
     },

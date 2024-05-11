@@ -19,7 +19,7 @@ export const challengeFields: Field[] = [
     name: "days",
     placeholder: "Enter number of days",
     type: "number",
-    default: undefined,
+    default: "",
     customClass: {
       input: "h-full text-2xl px-0 font-semibold border-none shadow-none",
     },
@@ -27,8 +27,7 @@ export const challengeFields: Field[] = [
       .string({
         required_error: "Please enter number of days",
       })
-      .min(1)
-      .transform((value) => Number(value)),
+      .min(1),
   },
   {
     name: "privacy",
@@ -86,7 +85,7 @@ export const challengeFields: Field[] = [
 ];
 
 const chellengeSchema = getFieldSchema(challengeFields);
-export const defaultValues = getFieldDefault(challengeFields);
+export const initialValues = getFieldDefault(challengeFields);
 
 export const challengeResolver = zodResolver(chellengeSchema);
 export type TChallengeSchema = zod.infer<typeof chellengeSchema>;

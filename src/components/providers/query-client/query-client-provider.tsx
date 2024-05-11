@@ -1,18 +1,8 @@
 import { getEnv } from "@/lib/getEnv";
-import {
-  QueryClient,
-  QueryClientProvider as ReactQueryClient,
-} from "@tanstack/react-query";
+import { QueryClientProvider as ReactQueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { If, Then } from "react-if";
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: 3,
-    },
-  },
-});
+import { queryClient } from "./queryClient";
 
 const isDevEnv = getEnv<boolean>("DEV");
 

@@ -1,4 +1,4 @@
-import { QueryClientProvider } from "@/components/providers/query-client-provider.tsx";
+import { QueryClientProvider } from "@/components/providers/query-client/query-client-provider.tsx";
 import { routeTree } from "./routeTree.gen.ts";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { Toaster } from "@/components/ui/sonner.tsx";

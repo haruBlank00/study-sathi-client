@@ -6,11 +6,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  FieldValues,
-  Path,
-  UseFormReturn
-} from "react-hook-form";
+import { FieldValues, Path, UseFormReturn } from "react-hook-form";
 import SathiEditor from "../sathi-editor/sathi-editor";
 import { SathiSelect } from "../sathi-select/sathi-select";
 import { TagsField } from "./tags-field";
@@ -89,12 +85,16 @@ export const FormBuilder = <T extends FieldValues>({
           control={form.control}
           name={name as Path<T>}
           render={({ field }) => {
+            const props = {
+              ...field,
+              markdown: field.value,
+            };
             return (
               <FormItem>
                 <FormLabel className={customClass.label}>{label}</FormLabel>
                 <FormControl>
                   <SathiEditor
-                    {...field}
+                    {...props}
                     placeholder="Type here..."
                     className={customClass.input}
                   />

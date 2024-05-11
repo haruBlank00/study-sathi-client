@@ -1,32 +1,56 @@
 import { SathiForm } from "@/components/form/sathi-form";
+import { queryClient } from "@/components/providers/query-client/queryClient";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import apiInstance from "@/lib/axios";
 import "@mdxeditor/editor/style.css";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useLoaderData } from "@tanstack/react-router";
 import { useForm } from "react-hook-form";
 import {
   TChallengeSchema,
   challengeFields,
   challengeResolver,
-  defaultValues,
+  initialValues,
 } from "./-form/fields";
 import { useCreateChallenge } from "./-hooks/useCreateChallenge";
+import { CreateChallengeResponse } from "./-interface";
 
 export const Route = createFileRoute(
   "/dashboard/_layout/challenge/$challengeId/"
 )({
   component: ChallengePage,
+  loader: async ({ params: { challengeId } }) => {
+    const isNew = challengeId === "new";
+    if (isNew) {
+      return;
+    }
+
+    const challengeResponse =
+      await queryClient.ensureQueryData<CreateChallengeResponse>({
+        queryKey: ["challenge", challengeId],
+        queryFn: async () =>
+          apiInstance({
+            url: "/challenges/" + challengeId,
+          }),
+      });
+
+    return challengeResponse.data.data.data.data.challenge;
+  },
 });
 
 function ChallengePage() {
+  const challenge = useLoaderData({
+    from: "/dashboard/_layout/challenge/$challengeId/",
+  });
   const form = useForm({
     resolver: challengeResolver,
-    defaultValues: defaultValues,
+    defaultValues: initialValues,
   });
   const { createChallenge, isChallengeCreating } = useCreateChallenge();
 
+  console.log({ challenge });
+
   const onSubmitHandler = (data: TChallengeSchema) => {
-    console.log({ data });
     createChallenge(data, {
       onError: (e) => {
         const data = e.response?.data?.error;
