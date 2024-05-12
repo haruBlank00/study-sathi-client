@@ -4,37 +4,60 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import apiInstance from "@/lib/axios";
 import "@mdxeditor/editor/style.css";
-import { createFileRoute, useLoaderData } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  notFound,
+  useLoaderData,
+} from "@tanstack/react-router";
 import { useForm } from "react-hook-form";
 import {
-  TChallengeSchema,
+  TChallenge,
   challengeFields,
   challengeResolver,
   initialValues,
 } from "./-form/fields";
 import { useCreateChallenge } from "./-hooks/useCreateChallenge";
-import { CreateChallengeResponse } from "./-interface";
+import { GetChallengeResponse } from "./-interface";
 
 export const Route = createFileRoute(
   "/dashboard/_layout/challenge/$challengeId/"
 )({
   component: ChallengePage,
-  loader: async ({ params: { challengeId } }) => {
+  loader: async ({
+    params: { challengeId },
+  }): Promise<TChallenge | undefined> => {
     const isNew = challengeId === "new";
     if (isNew) {
       return;
     }
 
     const challengeResponse =
-      await queryClient.ensureQueryData<CreateChallengeResponse>({
+      await queryClient.ensureQueryData<GetChallengeResponse>({
         queryKey: ["challenge", challengeId],
         queryFn: async () =>
           apiInstance({
             url: "/challenges/" + challengeId,
+            method: "GET",
           }),
       });
 
-    return challengeResponse.data.data.data.data.challenge;
+    const result = challengeResponse.data;
+    if (!result.success) {
+      throw notFound();
+    }
+
+    const challenge = result.challenge;
+    const { days, name, description, privacy } = challenge;
+    const tags = challenge.tags.map((tag) => tag.tag);
+    const challengeForForm = {
+      days,
+      name,
+      description,
+      privacy,
+      tags,
+    };
+
+    return challengeForForm;
   },
 });
 
@@ -42,18 +65,21 @@ function ChallengePage() {
   const challenge = useLoaderData({
     from: "/dashboard/_layout/challenge/$challengeId/",
   });
-  const form = useForm({
+  const form = useForm<TChallenge>({
     resolver: challengeResolver,
-    defaultValues: initialValues,
+    defaultValues: Boolean(challenge) ? challenge : initialValues,
   });
   const { createChallenge, isChallengeCreating } = useCreateChallenge();
+  // const {} =
 
-  console.log({ challenge });
-
-  const onSubmitHandler = (data: TChallengeSchema) => {
+  const TITLE = challenge
+    ? `Iterate on your amazing ${challenge.name}`
+    : "Create a new challenge";
+  const BTN_LABEL = challenge ? `Iterate Challenge` : "Let's Gooooo!!";
+  const onSubmitHandler = (data: TChallenge) => {
     createChallenge(data, {
       onError: (e) => {
-        const data = e.response?.data?.error;
+        // const data = e.response?.data?.error;
         console.log({ data, e });
       },
     });
@@ -61,7 +87,7 @@ function ChallengePage() {
 
   return (
     <div>
-      <h2>Take a new challenge :)</h2>
+      <h2>{TITLE} :)</h2>
       <Card className="w-full px-6 py-8">
         <SathiForm
           fields={challengeFields}
@@ -71,10 +97,10 @@ function ChallengePage() {
         >
           <div className="flex gap-4 mt-8">
             <Button type="submit" disabled={isChallengeCreating}>
-              Create a new challenge
+              {BTN_LABEL}
             </Button>
             <Button variant={"outline"} disabled={isChallengeCreating}>
-              Save Draft
+              Ofc Thinkin takes Time (save for later)
             </Button>
           </div>
         </SathiForm>

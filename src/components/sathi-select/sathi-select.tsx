@@ -26,6 +26,7 @@ export interface SathiSelectField extends FormField {
 interface SathiSelectProps
   extends Omit<Omit<SathiSelectField, "schema">, "default"> {
   onChange: (value: string) => void;
+  value: string;
 }
 export const SathiSelect = ({
   placeholder,
@@ -35,12 +36,14 @@ export const SathiSelect = ({
     input: "",
   },
   onChange,
+  value,
 }: SathiSelectProps) => {
   return (
     <Select
       onValueChange={(value) => {
         onChange(value);
       }}
+      value={value}
     >
       <SelectTrigger className={customClass.input}>
         <SelectValue placeholder={placeholder} />

@@ -42,6 +42,7 @@ export const FormBuilder = <T extends FieldValues>({
                     placeholder={placeholder}
                     customClass={customClass}
                     onChange={rhfField.onChange}
+                    value={rhfField.value}
                   />
                 </FormControl>
                 <FormMessage />
@@ -103,6 +104,33 @@ export const FormBuilder = <T extends FieldValues>({
               </FormItem>
             );
           }}
+        />
+      );
+    }
+
+    if (type === "number") {
+      return (
+        <FormField
+          key={name}
+          control={form.control}
+          name={name as Path<T>}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className={customClass.label}>{label}</FormLabel>
+              <FormControl>
+                <Input
+                  {...{
+                    field,
+                    onChange: (e) => field.onChange(Number(e.target.value)),
+                  }}
+                  placeholder={placeholder}
+                  type={type}
+                  className={customClass.input}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
       );
     }

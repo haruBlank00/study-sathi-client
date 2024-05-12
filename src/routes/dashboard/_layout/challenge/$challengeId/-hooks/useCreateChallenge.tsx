@@ -1,6 +1,6 @@
 import { useAxios } from "@/components/providers/axios-provider";
 import { useMutation } from "@tanstack/react-query";
-import { TChallengeSchema } from "../-form/fields";
+import { TChallenge } from "../-form/fields";
 import { CreateChallengeResponse } from "../-interface";
 import { ErrorResponse } from "@/types/response";
 
@@ -10,14 +10,14 @@ export const useCreateChallenge = () => {
   const { mutate, data, isPending } = useMutation<
     CreateChallengeResponse,
     ErrorResponse,
-    TChallengeSchema
+    TChallenge
   >({
     mutationKey: ["create-challenge"],
     mutationFn: (data) => {
       const { days } = data;
       return createChallenge({
         ...data,
-        days: Number(days),
+        days,
       });
     },
     onSuccess: (data) => {
@@ -25,7 +25,7 @@ export const useCreateChallenge = () => {
     },
   });
 
-  const createChallenge = async (data: TChallengeSchema) => {
+  const createChallenge = async (data: TChallenge) => {
     const result = await axios({
       method: "POST",
       url: "/challenges",

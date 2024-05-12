@@ -44,12 +44,17 @@ apiInstance.interceptors.response.use(
           return Promise.reject(error);
         }
 
-        const response = await apiInstance.post("auth/refresh-token", {
+        const response = await apiInstance.post<{
+          success: boolean;
+          tokens: {
+            accessToken: string;
+            refreshToken: string;
+          };
+        }>("auth/refresh-token", {
           refreshToken,
         });
 
-        const { tokens } = response.data.data;
-        const success = response.data.success;
+        const { tokens, success } = response.data;
         if (success) {
           const { accessToken, refreshToken } = tokens;
           const updateToken = authStore.getState().updateToken;

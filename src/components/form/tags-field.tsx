@@ -43,6 +43,7 @@ export const TagsField = ({
     const newTag = "#" + tag.trim();
     const updatedTags = [...currentTags, newTag];
     onChange(updatedTags);
+    setTag("");
   };
 
   const onInputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,7 +58,6 @@ export const TagsField = ({
     if (tagConditionIsMet) {
       const sanitizedValue = value.slice(0, -2); // we remove commana and whitespace
       addTagToArray(sanitizedValue);
-      setTag("");
       return;
     }
     setTag(value);
@@ -67,7 +67,6 @@ export const TagsField = ({
     if (e.key === "Enter") {
       e.preventDefault();
       addTagToArray(tag);
-      setTag("");
     }
   };
 

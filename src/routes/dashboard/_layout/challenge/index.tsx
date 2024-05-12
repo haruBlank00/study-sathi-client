@@ -5,14 +5,15 @@ import {} from "@tanstack/query-core";
 
 import { Link, createFileRoute, useLoaderData } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
-import { GetChallengesResponse } from "./-interface";
+import { Challenge, GetChallengesResponse } from "./-interface";
 import { SathiCrumb } from "@/components/sathi-crumb/sathi-crumb";
 import { ChallengeList } from "./-components/challenge/challenge-list";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/dashboard/_layout/challenge/")({
   component: ChallengePage,
-  loader: async (): Promise<GetChallengesResponse> => {
-    const result = await queryClient.ensureQueryData({
+  loader: async (): Promise<Challenge[]> => {
+    const result = await queryClient.ensureQueryData<GetChallengesResponse>({
       queryKey: ["challenges"],
       queryFn: async () => {
         return await apiInstance({
@@ -21,16 +22,22 @@ export const Route = createFileRoute("/dashboard/_layout/challenge/")({
         });
       },
     });
-    return result;
+    const data = result.data;
+
+    if (!data.success) {
+      toast.error(data.message);
+      return [];
+    }
+    return result.data.challenges;
   },
 });
 
 function ChallengePage() {
-  const data = useLoaderData({
+  const challenges = useLoaderData({
     from: "/dashboard/_layout/challenge/",
   });
 
-  console.log({ data });
+  console.log({ challenges });
 
   return (
     <div>
@@ -48,7 +55,7 @@ function ChallengePage() {
       <main>
         <SathiCrumb />
 
-        <ChallengeList challenges={data.data.data.challenges} />
+        <ChallengeList challenges={challenges} />
       </main>
     </div>
   );

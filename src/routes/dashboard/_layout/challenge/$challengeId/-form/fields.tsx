@@ -1,8 +1,37 @@
 import { Field } from "@/components/form/types";
-import { getFieldDefault, getFieldSchema } from "@/lib/utils";
+import { getFieldDefault } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import zod from "zod";
+
+const challengeSchema = zod.object({
+  name: zod.string().min(1, { message: "Please enter a challenge name." }),
+  // days: zod
+  //   .string({
+  //     required_error: "Please enter number of days",
+  //   })
+  //   .min(1),
+  days: zod.number().min(1, { message: "Please enter number of days" }),
+  privacy: zod.string().refine(
+    (value) => {
+      const result = zod.enum(["public", "private"]).safeParse(value);
+      if (result.success) {
+        return result.data;
+      }
+      return false;
+    },
+    {
+      message: "Please select a privacy option.",
+    }
+  ),
+  tags: zod.string().array().min(1, {
+    message: "Please enter at least one tag for your challenge.",
+  }),
+  description: zod.string().min(1, {
+    message: "Please enter a description for your challenge.",
+  }),
+});
+
 export const challengeFields: Field[] = [
   {
     name: "name",
@@ -12,7 +41,6 @@ export const challengeFields: Field[] = [
     customClass: {
       input: "h-full text-2xl px-0 font-semibold border-none shadow-none",
     },
-    schema: zod.string().min(1, { message: "Please enter a challenge name." }),
     default: "",
   },
   {
@@ -23,11 +51,6 @@ export const challengeFields: Field[] = [
     customClass: {
       input: "h-full text-2xl px-0 font-semibold border-none shadow-none",
     },
-    schema: zod
-      .string({
-        required_error: "Please enter number of days",
-      })
-      .min(1),
   },
   {
     name: "privacy",
@@ -48,27 +71,12 @@ export const challengeFields: Field[] = [
         value: "private",
       },
     ],
-    schema: zod.string().refine(
-      (value) => {
-        const result = zod.enum(["public", "private"]).safeParse(value);
-        if (result.success) {
-          return result.data;
-        }
-        return false;
-      },
-      {
-        message: "Please select a privacy option.",
-      }
-    ),
   },
   {
     name: "tags",
     placeholder: "Add upto 4 tags...",
     default: [],
     type: "tags",
-    schema: zod.string().array().min(1, {
-      message: "Please enter at least one tag for your challenge.",
-    }),
   },
   {
     default: "",
@@ -78,14 +86,10 @@ export const challengeFields: Field[] = [
     customClass: {
       input: "h-96 shadow-md rounded-md",
     },
-    schema: zod.string().min(1, {
-      message: "Please enter a description for your challenge.",
-    }),
   },
 ];
 
-const chellengeSchema = getFieldSchema(challengeFields);
 export const initialValues = getFieldDefault(challengeFields);
 
-export const challengeResolver = zodResolver(chellengeSchema);
-export type TChallengeSchema = zod.infer<typeof chellengeSchema>;
+export const challengeResolver = zodResolver(challengeSchema);
+export type TChallenge = zod.infer<typeof challengeSchema>;

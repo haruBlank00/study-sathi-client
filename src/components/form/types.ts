@@ -5,7 +5,6 @@ import { TagsField } from "./tags-field";
 export interface FormField {
   name: string;
   label?: string;
-  schema: Zod.Schema;
   default: unknown;
   placeholder?: string;
 }

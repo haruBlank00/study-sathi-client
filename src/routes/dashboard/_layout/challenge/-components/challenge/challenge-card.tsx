@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Challenge } from "../../-interface";
 import { Link } from "@tanstack/react-router";
-import { Eye, Pencil, Trash } from "lucide-react";
+import { Eye, Pencil } from "lucide-react";
 import { DeleteChallengeAlert } from "./delete-modal";
 
 type ChallengeCardProps = {

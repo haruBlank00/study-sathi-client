@@ -1,9 +1,10 @@
-import { SuccessResponse } from "@/types/response";
+import { ApiResponse } from "@/types/response";
 import { Challenge } from "../../-interface";
 
-export type CreateChallengeResponse = SuccessResponse<{
-  message: string;
-  data: {
-    challenge: Challenge;
-  };
+export type CreateChallengeResponse = ApiResponse<{
+  challenge: Challenge;
+}>;
+
+export type GetChallengeResponse = ApiResponse<{
+  challenge: Challenge;
 }>;

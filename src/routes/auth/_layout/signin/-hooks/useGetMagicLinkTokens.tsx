@@ -23,13 +23,13 @@ export const useGetMagicTokens = () => {
   >({
     mutationFn: ({ email }: MagicLinkParams) => getMagicLinkTokens({ email }),
     onError: (err) => {
-      if (err.response) {
-        const { error } = err.response.data;
+      if (err.request) {
+        const { error } = err.request.data;
         toast.error(error.message);
       }
     },
     onSuccess: (data, variables) => {
-      toast.success(data.data.data.message);
+      toast.success(data.data.message);
 
       updateAuthStatus("loading");
       updateEmail(variables.email);

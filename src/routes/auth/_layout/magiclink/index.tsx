@@ -26,7 +26,7 @@ export const Route = createFileRoute("/auth/_layout/magiclink/")({
         },
       });
       const { accessToken: access, refreshToken: refresh } =
-        response.data.data.tokens;
+        response.data.tokens;
 
       updateToken({ access, refresh });
       updateAuthStatus("authenticated");
