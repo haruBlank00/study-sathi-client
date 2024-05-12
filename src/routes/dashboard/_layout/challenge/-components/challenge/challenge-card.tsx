@@ -9,7 +9,7 @@ import {
 import { Challenge } from "../../-interface";
 import { Link } from "@tanstack/react-router";
 import { Eye, Pencil } from "lucide-react";
-import { DeleteChallengeAlert } from "./delete-modal";
+import { DeleteChallengeAlert } from "../delete-modal/delete-modal";
 
 type ChallengeCardProps = {
   challenge: Challenge;
@@ -35,7 +35,7 @@ export const ChallengeCard = ({ challenge }: ChallengeCardProps) => {
             <Pencil className="text-green-600" />
           </Link>
           <Eye className="text-blue-600" />
-          <DeleteChallengeAlert id={challenge._id} onDelete={() => {}} />
+          <DeleteChallengeAlert id={challenge._id} />
         </div>
       </CardHeader>
 

@@ -10,15 +10,12 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Trash } from "lucide-react";
-
+import { useDeleteChallenge } from "./useDeleteChallenge";
 type DeleteChallengeAlertProps = {
-  onDelete: (id: string) => void;
   id: string;
 };
-export const DeleteChallengeAlert = ({
-  onDelete,
-  id,
-}: DeleteChallengeAlertProps) => {
+export const DeleteChallengeAlert = ({ id }: DeleteChallengeAlertProps) => {
+  const { deleteChallenge, isDeletingChallenge } = useDeleteChallenge();
   return (
     <AlertDialog>
       <AlertDialogTrigger>
@@ -34,7 +31,10 @@ export const DeleteChallengeAlert = ({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={() => onDelete(id)}>
+          <AlertDialogAction
+            disabled={isDeletingChallenge}
+            onClick={() => deleteChallenge(id)}
+          >
             Continue
           </AlertDialogAction>
         </AlertDialogFooter>

@@ -15,10 +15,12 @@ export const useCreateChallenge = () => {
     mutationKey: ["create-challenge"],
     mutationFn: (data) => {
       const { days } = data;
-      return createChallenge({
+
+      const challengeData = {
         ...data,
         days,
-      });
+      };
+      return createChallenge(challengeData);
     },
     onSuccess: (data) => {
       console.log({ data });

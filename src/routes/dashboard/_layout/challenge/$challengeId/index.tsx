@@ -1,6 +1,5 @@
 import { SathiForm } from "@/components/form/sathi-form";
 import { queryClient } from "@/components/providers/query-client/queryClient";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import apiInstance from "@/lib/axios";
 import "@mdxeditor/editor/style.css";
@@ -19,6 +18,7 @@ import {
 import { useCreateChallenge } from "./-hooks/useCreateChallenge";
 import { GetChallengeResponse } from "./-interface";
 import { usePutChallenge } from "./-hooks/usePutChallenge";
+import { SathiButton } from "@/components/sathi-button/sathi-button";
 
 export const Route = createFileRoute(
   "/dashboard/_layout/challenge/$challengeId/"
@@ -86,7 +86,7 @@ function ChallengePage() {
   };
 
   const isBtnDisabled = isChallengeCreating || isChallengeUpdating;
-  // const isBtnLoading = isChallengeCreating || isChallengeUpdating;
+  const isBtnLoading = isChallengeCreating || isChallengeUpdating;
   return (
     <div>
       <h2>{TITLE} :)</h2>
@@ -98,12 +98,20 @@ function ChallengePage() {
           className="flex flex-col"
         >
           <div className="flex gap-4 mt-8">
-            <Button type="submit" disabled={isBtnDisabled}>
+            <SathiButton
+              type="submit"
+              disabled={isBtnDisabled}
+              isLoading={isBtnLoading}
+            >
               {BTN_LABEL}
-            </Button>
-            <Button variant={"outline"} disabled={isBtnDisabled}>
+            </SathiButton>
+            <SathiButton
+              variant={"outline"}
+              disabled={isBtnDisabled}
+              isLoading={isBtnLoading}
+            >
               I am thinking. (save for later)
-            </Button>
+            </SathiButton>
           </div>
         </SathiForm>
       </Card>
