@@ -18,6 +18,7 @@ import {
 } from "./-form/fields";
 import { useCreateChallenge } from "./-hooks/useCreateChallenge";
 import { GetChallengeResponse } from "./-interface";
+import { usePutChallenge } from "./-hooks/usePutChallenge";
 
 export const Route = createFileRoute(
   "/dashboard/_layout/challenge/$challengeId/"
@@ -28,7 +29,7 @@ export const Route = createFileRoute(
   }): Promise<TChallenge | undefined> => {
     const isNew = challengeId === "new";
     if (isNew) {
-      return;
+      return undefined;
     }
 
     const challengeResponse =
@@ -67,24 +68,25 @@ function ChallengePage() {
   });
   const form = useForm<TChallenge>({
     resolver: challengeResolver,
-    defaultValues: Boolean(challenge) ? challenge : initialValues,
+    defaultValues: challenge ? challenge : initialValues,
   });
   const { createChallenge, isChallengeCreating } = useCreateChallenge();
-  // const {} =
+  const { isChallengeUpdating, putChallenge } = usePutChallenge();
 
   const TITLE = challenge
     ? `Iterate on your amazing ${challenge.name}`
     : "Create a new challenge";
   const BTN_LABEL = challenge ? `Iterate Challenge` : "Let's Gooooo!!";
   const onSubmitHandler = (data: TChallenge) => {
-    createChallenge(data, {
-      onError: (e) => {
-        // const data = e.response?.data?.error;
-        console.log({ data, e });
-      },
-    });
+    if (challenge) {
+      putChallenge(data);
+    } else {
+      createChallenge(data);
+    }
   };
 
+  const isBtnDisabled = isChallengeCreating || isChallengeUpdating;
+  // const isBtnLoading = isChallengeCreating || isChallengeUpdating;
   return (
     <div>
       <h2>{TITLE} :)</h2>
@@ -96,11 +98,11 @@ function ChallengePage() {
           className="flex flex-col"
         >
           <div className="flex gap-4 mt-8">
-            <Button type="submit" disabled={isChallengeCreating}>
+            <Button type="submit" disabled={isBtnDisabled}>
               {BTN_LABEL}
             </Button>
-            <Button variant={"outline"} disabled={isChallengeCreating}>
-              Ofc Thinkin takes Time (save for later)
+            <Button variant={"outline"} disabled={isBtnDisabled}>
+              I am thinking. (save for later)
             </Button>
           </div>
         </SathiForm>

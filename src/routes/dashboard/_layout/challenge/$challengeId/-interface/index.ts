@@ -8,3 +8,7 @@ export type CreateChallengeResponse = ApiResponse<{
 export type GetChallengeResponse = ApiResponse<{
   challenge: Challenge;
 }>;
+
+export type PutChallengeResponse = ApiResponse<{
+  challenge: Challenge;
+}>;

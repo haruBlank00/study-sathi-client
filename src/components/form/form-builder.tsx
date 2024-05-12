@@ -120,7 +120,7 @@ export const FormBuilder = <T extends FieldValues>({
               <FormControl>
                 <Input
                   {...{
-                    field,
+                    ...field,
                     onChange: (e) => field.onChange(Number(e.target.value)),
                   }}
                   placeholder={placeholder}

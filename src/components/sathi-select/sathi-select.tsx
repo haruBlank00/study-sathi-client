@@ -54,7 +54,11 @@ export const SathiSelect = ({
           <SelectLabel>{label}</SelectLabel>
 
           {options.map((option) => (
-            <SelectItem key={option.value} value={option.value}>
+            <SelectItem
+              key={option.value}
+              value={option.value}
+              className="text-red-500"
+            >
               {option.label}
             </SelectItem>
           ))}

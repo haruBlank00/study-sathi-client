@@ -11,7 +11,7 @@ const challengeSchema = zod.object({
   //     required_error: "Please enter number of days",
   //   })
   //   .min(1),
-  days: zod.number().min(1, { message: "Please enter number of days" }),
+  days: zod.number({ required_error: "Please enter number of days." }),
   privacy: zod.string().refine(
     (value) => {
       const result = zod.enum(["public", "private"]).safeParse(value);
