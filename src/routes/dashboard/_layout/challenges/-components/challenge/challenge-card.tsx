@@ -27,7 +27,7 @@ export const ChallengeCard = ({ challenge }: ChallengeCardProps) => {
 
         <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity items-center">
           <Link
-            to="/dashboard/challenge/$challengeId"
+            to="/dashboard/challenges/$challengeId"
             params={{
               challengeId: challenge._id,
             }}

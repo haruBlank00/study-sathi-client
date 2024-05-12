@@ -1,5 +1,5 @@
 import apiInstance from "@/lib/axios";
-import { Challenge } from "@/routes/dashboard/_layout/challenge/-interface/index";
+import { Challenge } from "@/routes/dashboard/_layout/challenges/-interface/index";
 import { ErrorResponse } from "@/types/response";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";

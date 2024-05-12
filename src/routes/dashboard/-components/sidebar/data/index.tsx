@@ -6,6 +6,7 @@ export interface SideBarItem extends LinkProps {
   id: string;
   label: string;
   icon: JSX.Element;
+  // to: keyof FileRoutesByPath;
 }
 export const sidebarData: SideBarItem[] = [
   {
@@ -17,7 +18,7 @@ export const sidebarData: SideBarItem[] = [
   {
     id: cryptoId(),
     label: "challenge",
-    to: "/dashboard/challenge",
+    to: "/dashboard/challenges/",
     icon: <Swords />,
   },
 ];

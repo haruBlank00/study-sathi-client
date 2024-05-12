@@ -18,9 +18,9 @@ import { Route as ByebyeIndexImport } from './routes/byebye/index'
 import { Route as DashboardLayoutImport } from './routes/dashboard/_layout'
 import { Route as AuthLayoutImport } from './routes/auth/_layout'
 import { Route as DashboardLayoutIndexImport } from './routes/dashboard/_layout/index'
-import { Route as DashboardLayoutChallengeIndexImport } from './routes/dashboard/_layout/challenge/index'
+import { Route as DashboardLayoutChallengesIndexImport } from './routes/dashboard/_layout/challenges/index'
 import { Route as AuthLayoutMagiclinkIndexImport } from './routes/auth/_layout/magiclink/index'
-import { Route as DashboardLayoutChallengeChallengeIdIndexImport } from './routes/dashboard/_layout/challenge/$challengeId/index'
+import { Route as DashboardLayoutChallengesChallengeIdIndexImport } from './routes/dashboard/_layout/challenges/$challengeId/index'
 
 // Create Virtual Routes
 
@@ -74,9 +74,9 @@ const AuthLayoutSigninRouteLazyRoute = AuthLayoutSigninRouteLazyImport.update({
   import('./routes/auth/_layout/signin/route.lazy').then((d) => d.Route),
 )
 
-const DashboardLayoutChallengeIndexRoute =
-  DashboardLayoutChallengeIndexImport.update({
-    path: '/challenge/',
+const DashboardLayoutChallengesIndexRoute =
+  DashboardLayoutChallengesIndexImport.update({
+    path: '/challenges/',
     getParentRoute: () => DashboardLayoutRoute,
   } as any)
 
@@ -85,9 +85,9 @@ const AuthLayoutMagiclinkIndexRoute = AuthLayoutMagiclinkIndexImport.update({
   getParentRoute: () => AuthLayoutRoute,
 } as any)
 
-const DashboardLayoutChallengeChallengeIdIndexRoute =
-  DashboardLayoutChallengeChallengeIdIndexImport.update({
-    path: '/challenge/$challengeId/',
+const DashboardLayoutChallengesChallengeIdIndexRoute =
+  DashboardLayoutChallengesChallengeIdIndexImport.update({
+    path: '/challenges/$challengeId/',
     getParentRoute: () => DashboardLayoutRoute,
   } as any)
 
@@ -131,12 +131,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLayoutMagiclinkIndexImport
       parentRoute: typeof AuthLayoutImport
     }
-    '/dashboard/_layout/challenge/': {
-      preLoaderRoute: typeof DashboardLayoutChallengeIndexImport
+    '/dashboard/_layout/challenges/': {
+      preLoaderRoute: typeof DashboardLayoutChallengesIndexImport
       parentRoute: typeof DashboardLayoutImport
     }
-    '/dashboard/_layout/challenge/$challengeId/': {
-      preLoaderRoute: typeof DashboardLayoutChallengeChallengeIdIndexImport
+    '/dashboard/_layout/challenges/$challengeId/': {
+      preLoaderRoute: typeof DashboardLayoutChallengesChallengeIdIndexImport
       parentRoute: typeof DashboardLayoutImport
     }
   }
@@ -155,8 +155,8 @@ export const routeTree = rootRoute.addChildren([
   DashboardRoute.addChildren([
     DashboardLayoutRoute.addChildren([
       DashboardLayoutIndexRoute,
-      DashboardLayoutChallengeIndexRoute,
-      DashboardLayoutChallengeChallengeIdIndexRoute,
+      DashboardLayoutChallengesIndexRoute,
+      DashboardLayoutChallengesChallengeIdIndexRoute,
     ]),
   ]),
   ByebyeIndexRoute,

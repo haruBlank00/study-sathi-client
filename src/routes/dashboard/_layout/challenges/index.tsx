@@ -10,7 +10,7 @@ import { SathiCrumb } from "@/components/sathi-crumb/sathi-crumb";
 import { ChallengeList } from "./-components/challenge/challenge-list";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/dashboard/_layout/challenge/")({
+export const Route = createFileRoute("/dashboard/_layout/challenges/")({
   component: ChallengePage,
   loader: async (): Promise<Challenge[]> => {
     const result = await queryClient.ensureQueryData<GetChallengesResponse>({
@@ -34,7 +34,7 @@ export const Route = createFileRoute("/dashboard/_layout/challenge/")({
 
 function ChallengePage() {
   const challenges = useLoaderData({
-    from: "/dashboard/_layout/challenge/",
+    from: "/dashboard/_layout/challenges/",
   });
 
   console.log({ challenges });
@@ -42,7 +42,7 @@ function ChallengePage() {
   return (
     <div>
       <Link
-        to="/dashboard/challenge/$challengeId"
+        to="/dashboard/challenges/$challengeId"
         params={{
           challengeId: "new",
         }}
