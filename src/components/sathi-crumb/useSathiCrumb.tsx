@@ -20,10 +20,9 @@ export const useSathiCrumb = (): Crumb[] => {
 
   const paths = pathname.split("/").filter((path) => !!path);
   const crumbs = paths.map((path, i) => {
-    // let href;
-    const href = paths.slice(0, i + 1).join("/");
+    const href = "/" + paths.slice(0, i + 1).join("/");
     return {
-      href: `/${href}`,
+      href,
       label: path,
       id: ID(),
     };

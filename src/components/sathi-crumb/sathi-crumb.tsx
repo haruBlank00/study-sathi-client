@@ -18,7 +18,6 @@ export const SathiCrumb = () => {
         {crumbs.map((crumb, i) => {
           const isLast = i === lastCrumbPos;
           const LinkOrPage_WhichOneIsIt = isLast ? BreadcrumbPage : Link;
-          console.log({ crumb });
 
           return (
             <BreadcrumbItem key={crumb.id}>
