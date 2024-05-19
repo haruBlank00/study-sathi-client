@@ -21,6 +21,8 @@ import { Route as DashboardLayoutIndexImport } from './routes/dashboard/_layout/
 import { Route as DashboardLayoutChallengesIndexImport } from './routes/dashboard/_layout/challenges/index'
 import { Route as AuthLayoutMagiclinkIndexImport } from './routes/auth/_layout/magiclink/index'
 import { Route as DashboardLayoutChallengesChallengeIdIndexImport } from './routes/dashboard/_layout/challenges/$challengeId/index'
+import { Route as DashboardLayoutChallengesChallengeIdLogsIndexImport } from './routes/dashboard/_layout/challenges/$challengeId/logs/index'
+import { Route as DashboardLayoutChallengesChallengeIdLogsLogIdIndexImport } from './routes/dashboard/_layout/challenges/$challengeId/logs/$logId/index'
 
 // Create Virtual Routes
 
@@ -91,6 +93,18 @@ const DashboardLayoutChallengesChallengeIdIndexRoute =
     getParentRoute: () => DashboardLayoutRoute,
   } as any)
 
+const DashboardLayoutChallengesChallengeIdLogsIndexRoute =
+  DashboardLayoutChallengesChallengeIdLogsIndexImport.update({
+    path: '/challenges/$challengeId/logs/',
+    getParentRoute: () => DashboardLayoutRoute,
+  } as any)
+
+const DashboardLayoutChallengesChallengeIdLogsLogIdIndexRoute =
+  DashboardLayoutChallengesChallengeIdLogsLogIdIndexImport.update({
+    path: '/challenges/$challengeId/logs/$logId/',
+    getParentRoute: () => DashboardLayoutRoute,
+  } as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -139,6 +153,14 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardLayoutChallengesChallengeIdIndexImport
       parentRoute: typeof DashboardLayoutImport
     }
+    '/dashboard/_layout/challenges/$challengeId/logs/': {
+      preLoaderRoute: typeof DashboardLayoutChallengesChallengeIdLogsIndexImport
+      parentRoute: typeof DashboardLayoutImport
+    }
+    '/dashboard/_layout/challenges/$challengeId/logs/$logId/': {
+      preLoaderRoute: typeof DashboardLayoutChallengesChallengeIdLogsLogIdIndexImport
+      parentRoute: typeof DashboardLayoutImport
+    }
   }
 }
 
@@ -157,6 +179,8 @@ export const routeTree = rootRoute.addChildren([
       DashboardLayoutIndexRoute,
       DashboardLayoutChallengesIndexRoute,
       DashboardLayoutChallengesChallengeIdIndexRoute,
+      DashboardLayoutChallengesChallengeIdLogsIndexRoute,
+      DashboardLayoutChallengesChallengeIdLogsLogIdIndexRoute,
     ]),
   ]),
   ByebyeIndexRoute,

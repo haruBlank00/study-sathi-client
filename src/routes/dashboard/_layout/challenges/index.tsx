@@ -6,7 +6,7 @@ import {} from "@tanstack/query-core";
 import { Link, createFileRoute, useLoaderData } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 import { Challenge, GetChallengesResponse } from "./-interface";
-import { SathiCrumb } from "@/components/sathi-crumb/sathi-crumb";
+// import { SathiCrumb } from "@/components/sathi-crumb/sathi-crumb";
 import { ChallengeList } from "./-components/challenge/challenge-list";
 import { toast } from "sonner";
 
@@ -53,8 +53,6 @@ function ChallengePage() {
       </Link>
 
       <main>
-        <SathiCrumb />
-
         <ChallengeList challenges={challenges} />
       </main>
     </div>

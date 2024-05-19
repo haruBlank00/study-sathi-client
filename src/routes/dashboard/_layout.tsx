@@ -3,6 +3,7 @@ import { authStore, useAuthStore } from "@/store/auth/authStore";
 import { useUserStore } from "@/store/auth/userStore";
 import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
 import { Sidebar } from "./-components/sidebar/sidebar";
+import { SathiCrumb } from "@/components/sathi-crumb/sathi-crumb";
 
 export const Route = createFileRoute("/dashboard/_layout")({
   beforeLoad: async ({ location }) => {
@@ -38,6 +39,8 @@ export function DashboardPage() {
     <div className="flex gap-4 h-screen">
       <Sidebar />
       <div className="p-4 flex-1">
+        <SathiCrumb />
+
         <Outlet />
       </div>
     </div>

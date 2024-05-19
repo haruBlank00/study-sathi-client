@@ -18,6 +18,7 @@ apiInstance.interceptors.request.use(
     };
   },
   (error) => {
+    console.log({ error }, "error happended");
     return Promise.reject(error);
   }
 );
@@ -44,29 +45,35 @@ apiInstance.interceptors.response.use(
           return Promise.reject(error);
         }
 
-        const response = await apiInstance.post<{
-          success: boolean;
-          tokens: {
-            accessToken: string;
-            refreshToken: string;
-          };
-        }>("auth/refresh-token", {
-          refreshToken,
-        });
-
-        const { tokens, success } = response.data;
-        if (success) {
-          const { accessToken, refreshToken } = tokens;
-          const updateToken = authStore.getState().updateToken;
-          updateToken({
-            access: accessToken,
-            refresh: refreshToken,
+        try {
+          const response = await apiInstance.post<{
+            success: boolean;
+            tokens: {
+              accessToken: string;
+              refreshToken: string;
+            };
+          }>("auth/refresh-token", {
+            refreshToken,
           });
 
-          apiInstance.defaults.headers.common["Authorization"] =
-            `Bearer ${accessToken}`;
+          const { tokens, success } = response.data;
+          if (success) {
+            const { accessToken, refreshToken } = tokens;
+            const updateToken = authStore.getState().updateToken;
+            updateToken({
+              access: accessToken,
+              refresh: refreshToken,
+            });
 
-          return apiInstance(originalRequest);
+            apiInstance.defaults.headers.common["Authorization"] =
+              `Bearer ${accessToken}`;
+
+            return apiInstance(originalRequest);
+          }
+        } catch (e) {
+          // !TODO - Handle auth failed properly
+          console.log({ e }, "eeee happened");
+          window.location.href = "/auth/signin";
         }
       }
       return Promise.reject(error);
