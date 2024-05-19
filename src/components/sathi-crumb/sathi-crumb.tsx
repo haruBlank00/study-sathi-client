@@ -5,14 +5,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { ID } from "@/lib/utils";
-import { Link, useRouterState } from "@tanstack/react-router";
-
-type Crumb = {
-  href?: string;
-  label: string;
-  id: string;
-};
+import { Link } from "@tanstack/react-router";
+import { useSathiCrumb } from "./useSathiCrumb";
 
 export const SathiCrumb = () => {
   const crumbs = useSathiCrumb();
@@ -24,10 +18,11 @@ export const SathiCrumb = () => {
         {crumbs.map((crumb, i) => {
           const isLast = i === lastCrumbPos;
           const LinkOrPage_WhichOneIsIt = isLast ? BreadcrumbPage : Link;
+          console.log({ crumb });
 
           return (
             <BreadcrumbItem key={crumb.id}>
-              <LinkOrPage_WhichOneIsIt className="capitalize">
+              <LinkOrPage_WhichOneIsIt className="capitalize" to={crumb.href}>
                 {crumb.label}
               </LinkOrPage_WhichOneIsIt>
 
@@ -38,17 +33,4 @@ export const SathiCrumb = () => {
       </BreadcrumbList>
     </Breadcrumb>
   );
-};
-
-const useSathiCrumb = (): Crumb[] => {
-  const router = useRouterState();
-  const pathname = router.location.pathname;
-
-  const paths = pathname.split("/").filter((path) => !!path);
-  const crumbs = paths.map((path) => ({
-    href: `${path}`,
-    label: path,
-    id: ID(),
-  }));
-  return crumbs;
 };
