@@ -1,17 +1,21 @@
 import { Field } from "@/components/form/types";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Card, CardContent } from "@/components/ui/card";
+import { FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Upload, X } from "lucide-react";
+import { useState } from "react";
 import zod from "zod";
 
 const settingsSchema = zod.object({
-  userName: zod.string().min(1, { message: "Please enter a name." }),
+  userName: zod.string().min(1, { message: "Please choose a username." }),
   avatar: zod
     .custom<File>((file) => file instanceof File)
     .refine((file) => file.size <= 2 * 1024 * 1024, {
       message: "File size should be less than 2MB",
     })
     .refine((file) => ["image/jpeg", "image/png"].includes(file.type), {
-      message: "Only jpg/jpeg and png files are allowed",
+      message: "Please choose JPG/JPEG or PNG files.",
     })
     .nullable(),
 });
@@ -26,17 +30,85 @@ export const settingsFields: Field[] = [
   {
     name: "avatar",
     type: "custom",
-    Component: ({ field, name }) => {
+    Component: ({ field }) => {
+      const { name, onChange } = field;
+      const [previewSrc, setPreviewSrc] = useState("");
+      const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = e.target.files;
+        console.log({ files });
+        if (!files) return;
+
+        const file = files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          setPreviewSrc(reader.result as string);
+        };
+        reader.readAsDataURL(file);
+        onChange(file);
+      };
+
+      const avatarRemoveHandler = (
+        e: React.MouseEvent<SVGSVGElement, MouseEvent>
+      ) => {
+        e.stopPropagation();
+        setPreviewSrc("");
+        onChange(null);
+      };
+
+      const helperText = (
+        <FormLabel htmlFor="avatar" className="cursor-pointer">
+          <div className="space-y-1 gap-2">
+            <Upload className="mx-auto" />
+            <h3 className="text-slate-900 text-xl">Upload Picture</h3>
+            <p className="text-base text-slate-500">
+              Choose avatar | Avatar size should be less than 2MB{" "}
+            </p>
+            <p className="text-base text-slate-500">
+              and should be in{" "}
+              <span className="text-slate-900 text-lg">JPG, PNG, or GIF</span>{" "}
+              format
+            </p>
+          </div>
+        </FormLabel>
+      );
+
+      const imagePreviewer = (
+        <figure className="h-full w-full">
+          <img
+            src={previewSrc}
+            alt="Your avatar preview"
+            className="block w-full h-full object-contain"
+          />
+        </figure>
+      );
+
       return (
-        <div>
+        <>
           <Input
+            className="hidden"
             type="file"
             name={name}
-            onChange={(e) => {
-              field.onChange(e.target.files?.[0]);
-            }}
+            onChange={onChangeHandler}
+            id="avatar"
           />
-        </div>
+
+          <p className="text-base mb-4">Choose your avatar</p>
+
+          <Card className="p-6 ">
+            <CardContent className="relative h-56 border-2 border-slate-400 border-dashed rounded-md text-center p-8">
+              {previewSrc && (
+                <X
+                  className="absolute top-2 right-2 hover:scale-125 hover:animate-spin transition-transform cursor-pointer"
+                  onClick={avatarRemoveHandler}
+                />
+              )}
+              {previewSrc ? imagePreviewer : helperText}
+            </CardContent>
+          </Card>
+
+          <FormMessage />
+        </>
       );
     },
   },

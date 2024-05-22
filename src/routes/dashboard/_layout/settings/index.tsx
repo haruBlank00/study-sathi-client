@@ -17,7 +17,6 @@ function SettingsPage() {
       avatar: null,
     },
   });
-  ``;
   const onSubmitHandler = ({ avatar, userName }: TSettings) => {
     console.log({ avatar, userName });
   };
