@@ -1,10 +1,11 @@
 import { Separator } from "@/components/ui/separator";
 import { Burger } from "./components/burger";
 import { ConfirmLogoutModal } from "./components/confirm-logout-modal";
-import { ItemsMapper } from "./components/items-mapper";
+import { Item, ItemsMapper } from "./components/items-mapper";
 import { sidebarData } from "./data";
 import { SathiAvatar } from "@/components/sathi-avatar/sathi-avatar";
-
+import { Settings } from "lucide-react";
+import { Route as SettingsRoute } from "@/routes/dashboard/_layout/settings";
 export const Sidebar = () => {
   return (
     <div className=" bg-red-200 w-40 flex flex-col">
@@ -16,11 +17,19 @@ export const Sidebar = () => {
       <Separator className="my-4" />
 
       <div className="flex flex-col  flex-1 justify-between">
-        <div>
-          <ItemsMapper items={sidebarData} />
-        </div>
+        <ItemsMapper items={sidebarData} />
 
-        <ConfirmLogoutModal />
+        <div>
+          <Item
+            item={{
+              icon: <Settings />,
+              label: "Settings",
+              to: SettingsRoute.path,
+              id: crypto.randomUUID(),
+            }}
+          />
+          <ConfirmLogoutModal />
+        </div>
       </div>
     </div>
   );

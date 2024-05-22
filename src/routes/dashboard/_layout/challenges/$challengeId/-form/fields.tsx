@@ -1,5 +1,4 @@
 import { Field } from "@/components/form/types";
-import { getFieldDefault } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import zod from "zod";
@@ -93,7 +92,13 @@ export const challengeFields: Field[] = [
   },
 ];
 
-export const initialValues = getFieldDefault(challengeFields);
+export const initialValues = {
+  name: "",
+  days: 0,
+  privacy: "public",
+  tags: [],
+  description: "",
+};
 
 export const challengeResolver = zodResolver(challengeSchema);
 export type TChallenge = zod.infer<typeof challengeSchema>;

@@ -6,7 +6,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { FieldValues, Path, UseFormReturn } from "react-hook-form";
+import {
+  ControllerRenderProps,
+  FieldValues,
+  Path,
+  UseFormReturn,
+} from "react-hook-form";
 import SathiEditor from "../sathi-editor/sathi-editor";
 import { SathiSelect } from "../sathi-select/sathi-select";
 import { TagsField } from "./tags-field";
@@ -22,6 +27,30 @@ export const FormBuilder = <T extends FieldValues>({
   form,
 }: FormBuilderProps<T>) => {
   return fields.map((field) => {
+    if (field.type === "custom") {
+      const { Component, name, showError } = field;
+
+      return (
+        <FormField
+          key={name}
+          control={form.control}
+          name={name as Path<T>}
+          render={({ field }) => {
+            return (
+              <FormItem>
+                <FormControl>
+                  <Component
+                    field={field as unknown as ControllerRenderProps}
+                    name={name}
+                  />
+                </FormControl>
+                {showError && <FormMessage />}
+              </FormItem>
+            );
+          }}
+        />
+      );
+    }
     const { label, name, placeholder, type } = field;
 
     if (field.type === "select") {
@@ -77,6 +106,7 @@ export const FormBuilder = <T extends FieldValues>({
         />
       );
     }
+
     const { customClass = { label: "", input: "" } } = field;
 
     if (type === "markdown") {

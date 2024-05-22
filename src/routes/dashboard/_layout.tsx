@@ -24,7 +24,6 @@ export const Route = createFileRoute("/dashboard/_layout")({
   },
   component: DashboardPage,
 });
-
 export function DashboardPage() {
   const { authStatus } = useAuthStore();
   const { email } = useUserStore();

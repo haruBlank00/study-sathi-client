@@ -5,10 +5,14 @@ type ItemsMapperProps = {
   items: SideBarItem[];
 };
 export const ItemsMapper = ({ items }: ItemsMapperProps) => {
-  return items.map((item) => {
-    const { id } = item;
-    return <Item item={item} key={id} />;
-  });
+  return (
+    <div>
+      {items.map((item) => {
+        const { id } = item;
+        return <Item item={item} key={id} />;
+      })}
+    </div>
+  );
 };
 
 export const Item = ({ item }: { item: SideBarItem }) => {

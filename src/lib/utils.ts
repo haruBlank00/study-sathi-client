@@ -13,7 +13,8 @@ export function getFieldDefault(fields: Field[]) {
   const fieldDefault = fields.reduce((acc, curr) => {
     return {
       ...acc,
-      [curr.name]: curr.default,
+
+      [curr.name]: "",
     };
   }, {});
   return fieldDefault;
