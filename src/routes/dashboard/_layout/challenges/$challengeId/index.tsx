@@ -89,7 +89,7 @@ function ChallengePage() {
   const isBtnLoading = isChallengeCreating || isChallengeUpdating;
   return (
     <div>
-      <h2>{TITLE} :)</h2>
+      <h2 className="font-semibold text-2xl py-4">{TITLE} :)</h2>
       <Card className="w-full px-6 py-8">
         <SathiForm
           fields={challengeFields}

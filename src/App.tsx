@@ -13,7 +13,7 @@ declare module "@tanstack/react-router" {
 const App = () => {
   return (
     <QueryClientProvider>
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
       <Toaster richColors />
     </QueryClientProvider>
   );
