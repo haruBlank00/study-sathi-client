@@ -23,6 +23,7 @@ import { Route as DashboardLayoutChallengesIndexImport } from './routes/dashboar
 import { Route as AuthLayoutMagiclinkIndexImport } from './routes/auth/_layout/magiclink/index'
 import { Route as DashboardLayoutChallengesChallengeIdIndexImport } from './routes/dashboard/_layout/challenges/$challengeId/index'
 import { Route as DashboardLayoutChallengesChallengeIdLogsIndexImport } from './routes/dashboard/_layout/challenges/$challengeId/logs/index'
+import { Route as DashboardLayoutChallengesChallengeIdLogsNewImport } from './routes/dashboard/_layout/challenges/$challengeId/logs/new'
 import { Route as DashboardLayoutChallengesChallengeIdLogsLogIdIndexImport } from './routes/dashboard/_layout/challenges/$challengeId/logs/$logId/index'
 
 // Create Virtual Routes
@@ -106,6 +107,12 @@ const DashboardLayoutChallengesChallengeIdLogsIndexRoute =
     getParentRoute: () => DashboardLayoutRoute,
   } as any)
 
+const DashboardLayoutChallengesChallengeIdLogsNewRoute =
+  DashboardLayoutChallengesChallengeIdLogsNewImport.update({
+    path: '/challenges/$challengeId/logs/new',
+    getParentRoute: () => DashboardLayoutRoute,
+  } as any)
+
 const DashboardLayoutChallengesChallengeIdLogsLogIdIndexRoute =
   DashboardLayoutChallengesChallengeIdLogsLogIdIndexImport.update({
     path: '/challenges/$challengeId/logs/$logId/',
@@ -164,6 +171,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardLayoutChallengesChallengeIdIndexImport
       parentRoute: typeof DashboardLayoutImport
     }
+    '/dashboard/_layout/challenges/$challengeId/logs/new': {
+      preLoaderRoute: typeof DashboardLayoutChallengesChallengeIdLogsNewImport
+      parentRoute: typeof DashboardLayoutImport
+    }
     '/dashboard/_layout/challenges/$challengeId/logs/': {
       preLoaderRoute: typeof DashboardLayoutChallengesChallengeIdLogsIndexImport
       parentRoute: typeof DashboardLayoutImport
@@ -191,6 +202,7 @@ export const routeTree = rootRoute.addChildren([
       DashboardLayoutChallengesIndexRoute,
       DashboardLayoutSettingsIndexRoute,
       DashboardLayoutChallengesChallengeIdIndexRoute,
+      DashboardLayoutChallengesChallengeIdLogsNewRoute,
       DashboardLayoutChallengesChallengeIdLogsIndexRoute,
       DashboardLayoutChallengesChallengeIdLogsLogIdIndexRoute,
     ]),
