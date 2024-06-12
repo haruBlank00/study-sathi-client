@@ -39,11 +39,12 @@ function PreviewLog() {
     from: "/dashboard/_layout/challenges/$challengeId/logs/$logId/",
   });
 
-  console.log({ log });
-  const heading = `Day ${log.day} of ${log.challenge.name}`;
   return (
     <main>
-      <h1>{heading}</h1>
+      <div className="prose capitalize">
+        <h2 className="text-white">Day {log.day}</h2>
+        <h1 className="text-white">{log.challenge.name}</h1>
+      </div>
       <MdxPreview markdown={log.content} />
     </main>
   );

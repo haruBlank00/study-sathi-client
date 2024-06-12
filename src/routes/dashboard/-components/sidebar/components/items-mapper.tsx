@@ -24,7 +24,7 @@ export const Item = ({ item }: { item: SideBarItem }) => {
       className={`flex gap-2 p-4 capitalize hover:bg-primary rounded-md shadow-md transition`}
       activeProps={{ className: "bg-primary" }}
       activeOptions={{
-        exact: true,
+        exact: false,
       }}
     >
       {icon}
