@@ -10,6 +10,7 @@ import { Challenge } from "../../-interface";
 import { Link } from "@tanstack/react-router";
 import { Eye, Pencil } from "lucide-react";
 import { DeleteChallengeAlert } from "../delete-modal/delete-modal";
+import { Separator } from "@/components/ui/separator";
 
 type ChallengeCardProps = {
   challenge: Challenge;
@@ -24,10 +25,10 @@ export const ChallengeCard = ({ challenge }: ChallengeCardProps) => {
         challengeId: challenge._id,
       }}
     >
-      <Card className="cursor-pointer group h-full">
+      <Card className="cursor-pointer group h-full border-primary">
         <CardHeader className="flex flex-row justify-between">
           <div>
-            <CardTitle className="capitalize">{challenge.name}</CardTitle>
+            <CardTitle className="capitalize text-primary mb-2">{challenge.name}</CardTitle>
             <CardDescription>{challengeDays}</CardDescription>
           </div>
 
@@ -45,7 +46,9 @@ export const ChallengeCard = ({ challenge }: ChallengeCardProps) => {
           </div>
         </CardHeader>
 
-        <CardContent className="text-white">
+        <Separator className="bg-primary w-[90%] mx-auto" />
+
+        <CardContent className="text-white p-0">
           <MdxPreview markdown={challenge.description} />
         </CardContent>
       </Card>

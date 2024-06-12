@@ -41,18 +41,21 @@ function ChallengePage() {
 
   return (
     <div>
-      <Link
-        to="/dashboard/challenges/$challengeId"
-        params={{
-          challengeId: "new",
-        }}
-      >
-        <Button className="gap-2 items-center">
-          <Plus /> Create Challenge
-        </Button>
-      </Link>
+      <div className="flex justify-end">
+        <Link
+          to="/dashboard/challenges/$challengeId"
+          params={{
+            challengeId: "new",
+          }}
+        >
+          <Button className="gap-2 items-center">
+            <Plus /> Create Challenge
+          </Button>
+        </Link>
+      </div>
 
       <main className="mt-4">
+        <h1 className="mb-4 text-2xl font-semibold">Keep on challenging yourself... </h1>
         <ChallengeList challenges={challenges} />
       </main>
     </div>

@@ -11,8 +11,8 @@ export const OneLine = ({ log }: { log: Log }) => {
 
   const to = `/dashboard/challenges/${log.challenge}/logs/${log._id}`;
   return (
-    <Link to={to} className="">
-      <li className="mb-10 ms-4">
+    <li className="mb-10 ms-4 border-b border-transparent hover:border-b-primary transition">
+      <Link to={to}>
         <div className="absolute w-3 h-3 bg-primary border-primary rounded-full mt-1.5 -start-1.5 border"></div>
         <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
           {formattedDate}
@@ -44,7 +44,7 @@ export const OneLine = ({ log }: { log: Log }) => {
         />
       </svg>
     </a> */}
-      </li>
-    </Link>
+      </Link>
+    </li>
   );
 };

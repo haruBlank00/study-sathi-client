@@ -1,5 +1,6 @@
 import { queryClient } from "@/components/providers/query-client/queryClient";
 import { Button } from "@/components/ui/button";
+import { Badge } from '@/components/ui/badge'
 import apiInstance from "@/lib/axios";
 import {
   Link,
@@ -10,6 +11,7 @@ import {
 import { toast } from "sonner";
 import { GetLogsResponse } from "./-interface";
 import { Timeline } from "./-components/timeline/timeline";
+import { Separator } from "@/components/ui/separator";
 export const Route = createFileRoute(
   "/dashboard/_layout/challenges/$challengeId/logs/"
 )({
@@ -29,9 +31,16 @@ export const Route = createFileRoute(
     const data = result.data;
     if (!data.success) {
       toast.error(data.message);
-      return [];
+      return {
+        logs: [], challenge: null
+      }
     }
-    return data.data.logs;
+
+    const returnData = {
+      logs: data.data.logs,
+      challenge: data.data.challenge
+    }
+    return returnData;
   },
 });
 
@@ -40,11 +49,11 @@ function ChallengeLogs() {
     from: "/dashboard/_layout/challenges/$challengeId/logs/",
   });
 
-  const logs = useLoaderData({
+  const { logs, challenge } = useLoaderData({
     from: "/dashboard/_layout/challenges/$challengeId/logs/",
   });
 
-  console.log({ logs })
+  console.log({ logs, challenge })
 
   return (
     <div>
@@ -59,7 +68,33 @@ function ChallengeLogs() {
       </Link>
 
       <main className="mt-4">
-        <Timeline logs={logs} />
+        <div className="mb-4 prose">
+          <h2 className="capitalize text-white">{challenge?.name}
+            <span>
+              ({challenge?.days} Days)
+            </span>
+          </h2>
+          <p className="text-white capitalize">
+            {challenge?.description}
+          </p>
+
+
+          <ul className="flex gap-2 list-none">
+            {
+              challenge?.tags.map(tag => {
+                return <li>
+                  <Badge>
+                    {tag.tag}
+                  </Badge>
+                </li>
+              })
+            }
+          </ul>
+        </div>
+
+        <Separator className="mb-4" />
+
+        <Timeline logs={logs} title={`Logs for ${challenge?.name}`} />
       </main>
     </div>
   );
