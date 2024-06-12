@@ -25,7 +25,6 @@ function SettingsPage() {
   };
   return (
     <div>
-      <h1>Settings Page</h1>
       <Separator />
 
       <main className="max-w-96">

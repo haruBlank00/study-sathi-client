@@ -1,0 +1,12 @@
+#input-comment-box .mdxeditor {
+  display: flex;
+  flex-direction: column;
+}
+
+#input-comment-box .mdxeditor-toolbar {
+  @apply bg-primary text-secondary order-2 rounded-t-none;
+}
+
+#input-comment-box .mdxeditor-root-contenteditable {
+  @apply bg-secondary rounded-t-md;
+}

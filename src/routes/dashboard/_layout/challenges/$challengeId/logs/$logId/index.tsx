@@ -7,6 +7,7 @@ import {
 } from "@tanstack/react-router";
 import { GetLogResponse } from "./-interface";
 import { MdxPreview } from "@/components/sathi-editor/mdx-preview";
+import { CommentsSection } from "./-components/comments-section/comments-section";
 export const Route = createFileRoute(
   "/dashboard/_layout/challenges/$challengeId/logs/$logId/"
 )({
@@ -45,8 +46,8 @@ function PreviewLog() {
         <h2 className="text-white">Day {log.day}</h2>
         <h1 className="text-white">{log.challenge.name}</h1>
       </div>
-
       <MdxPreview markdown={log.content} />
+      <CommentsSection />
     </main>
   );
 }

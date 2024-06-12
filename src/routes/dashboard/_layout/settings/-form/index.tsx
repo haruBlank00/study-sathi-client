@@ -60,13 +60,13 @@ export const settingsFields: Field[] = [
         <FormLabel htmlFor="avatar" className="cursor-pointer">
           <div className="space-y-1 gap-2">
             <Upload className="mx-auto" />
-            <h3 className="text-slate-900 text-xl">Upload Picture</h3>
+            <h3 className="text-primary text-xl">Upload Picture</h3>
             <p className="text-base text-slate-500">
               Choose avatar | Avatar size should be less than 2MB{" "}
             </p>
             <p className="text-base text-slate-500">
               and should be in{" "}
-              <span className="text-slate-900 text-lg">JPG, PNG, or GIF</span>{" "}
+              <span className="text-primary text-lg">JPG, PNG, or GIF</span>{" "}
               format
             </p>
           </div>
