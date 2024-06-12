@@ -6,7 +6,7 @@ type TimelineProps = {
 };
 export const Timeline = ({ logs }: TimelineProps) => {
   return (
-    <ol className="relative border-s border-gray-200 dark:border-gray-700">
+    <ol className="relative border-s border-primary">
       {logs.map((log) => {
         return <OneLine key={log._id} log={log} />;
       })}
