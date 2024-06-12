@@ -13,8 +13,8 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as IndexImport } from './routes/index'
 import { Route as ByebyeIndexImport } from './routes/byebye/index'
+import { Route as homeIndexImport } from './routes/(home)/index'
 import { Route as DashboardLayoutImport } from './routes/dashboard/_layout'
 import { Route as AuthLayoutImport } from './routes/auth/_layout'
 import { Route as DashboardLayoutIndexImport } from './routes/dashboard/_layout/index'
@@ -46,13 +46,13 @@ const AuthRoute = AuthImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const IndexRoute = IndexImport.update({
-  path: '/',
+const ByebyeIndexRoute = ByebyeIndexImport.update({
+  path: '/byebye/',
   getParentRoute: () => rootRoute,
 } as any)
 
-const ByebyeIndexRoute = ByebyeIndexImport.update({
-  path: '/byebye/',
+const homeIndexRoute = homeIndexImport.update({
+  path: '/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -123,10 +123,6 @@ const DashboardLayoutChallengesChallengeIdLogsLogIdIndexRoute =
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
     '/auth': {
       preLoaderRoute: typeof AuthImport
       parentRoute: typeof rootRoute
@@ -142,6 +138,10 @@ declare module '@tanstack/react-router' {
     '/dashboard/_layout': {
       preLoaderRoute: typeof DashboardLayoutImport
       parentRoute: typeof DashboardRoute
+    }
+    '/(home)/': {
+      preLoaderRoute: typeof homeIndexImport
+      parentRoute: typeof rootRoute
     }
     '/byebye/': {
       preLoaderRoute: typeof ByebyeIndexImport
@@ -189,7 +189,6 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren([
-  IndexRoute,
   AuthRoute.addChildren([
     AuthLayoutRoute.addChildren([
       AuthLayoutSigninRouteLazyRoute,
@@ -207,6 +206,7 @@ export const routeTree = rootRoute.addChildren([
       DashboardLayoutChallengesChallengeIdLogsLogIdIndexRoute,
     ]),
   ]),
+  homeIndexRoute,
   ByebyeIndexRoute,
 ])
 
