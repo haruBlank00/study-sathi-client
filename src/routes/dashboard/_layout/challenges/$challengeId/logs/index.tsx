@@ -44,6 +44,8 @@ function ChallengeLogs() {
     from: "/dashboard/_layout/challenges/$challengeId/logs/",
   });
 
+  console.log({ logs })
+
   return (
     <div>
       <Link
@@ -56,7 +58,7 @@ function ChallengeLogs() {
         <Button type="button">Create Log</Button>
       </Link>
 
-      <main>
+      <main className="mt-4">
         <Timeline logs={logs} />
       </main>
     </div>

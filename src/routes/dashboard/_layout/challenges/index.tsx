@@ -1,7 +1,7 @@
 import { queryClient } from "@/components/providers/query-client/queryClient";
 import { Button } from "@/components/ui/button";
 import apiInstance from "@/lib/axios";
-import {} from "@tanstack/query-core";
+import { } from "@tanstack/query-core";
 
 import { Link, createFileRoute, useLoaderData } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
@@ -52,7 +52,7 @@ function ChallengePage() {
         </Button>
       </Link>
 
-      <main>
+      <main className="mt-4">
         <ChallengeList challenges={challenges} />
       </main>
     </div>

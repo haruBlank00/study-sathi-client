@@ -24,7 +24,7 @@ export const ChallengeCard = ({ challenge }: ChallengeCardProps) => {
         challengeId: challenge._id,
       }}
     >
-      <Card className="cursor-pointer group">
+      <Card className="cursor-pointer group h-full">
         <CardHeader className="flex flex-row justify-between">
           <div>
             <CardTitle className="capitalize">{challenge.name}</CardTitle>
@@ -45,7 +45,7 @@ export const ChallengeCard = ({ challenge }: ChallengeCardProps) => {
           </div>
         </CardHeader>
 
-        <CardContent>
+        <CardContent className="text-white">
           <MdxPreview markdown={challenge.description} />
         </CardContent>
       </Card>
