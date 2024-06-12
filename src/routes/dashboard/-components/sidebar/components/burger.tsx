@@ -35,6 +35,7 @@ export const Burger = () => {
       className="flex flex-col gap-y-1 w-6 cursor-pointer"
       initial="initial"
       whileHover={"animate"}
+      whileTap={"animate"}
     >
       <motion.span
         variants={topBurger}
