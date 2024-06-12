@@ -35,7 +35,7 @@ export function DashboardPage() {
   }
 
   return (
-    <div className="flex gap-4 h-screen">
+    <div className="flex gap-4 min-h-screen">
       <Sidebar />
       <div className="p-4 flex-1">
         <SathiCrumb />

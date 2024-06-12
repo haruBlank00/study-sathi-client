@@ -16,8 +16,8 @@ export const Sidebar = () => {
   const toggleSidebar = () => setShowSidebar(prev => !prev)
   const className = showSidebar ? "translate-x-0 flex" : "hidden lg:translate-x-0 "
   return (
-    <div>
-      <div className={`${className} flex-col pr-4 transition w-72 h-full`}>
+    <div className="relative">
+      <div className={`${className} flex-col pr-4 transition w-72 h-screen sticky top-0`}>
         <div className="flex items-center justify-between p-4">
           <SathiAvatar />
           <div onClick={toggleSidebar} className="lg:hidden">
