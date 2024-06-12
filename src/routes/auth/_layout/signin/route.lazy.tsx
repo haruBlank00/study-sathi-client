@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { loginFields } from "./-form/fields";
 import { TLoginSchema, loginResolver } from "./-form/login.schema";
 import { useGetMagicTokens } from "./-hooks/useGetMagicLinkTokens";
+import { SathiButton } from "@/components/sathi-button/sathi-button";
 
 export const Route = createLazyFileRoute("/auth/_layout/signin")({
   component: LoginPage,
@@ -57,13 +58,13 @@ function LoginPage() {
           </div>
 
           <SathiForm form={form} fields={loginFields} onSubmit={onLoginHandler}>
-            <Button
+            <SathiButton
               className="w-full py-2 mt-4"
               type="submit"
-              disabled={isPending}
+              isLoading={isPending}
             >
               Login with magic link
-            </Button>
+            </SathiButton>
           </SathiForm>
         </CardContent>
       </Card>
