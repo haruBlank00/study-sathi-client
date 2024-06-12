@@ -7,11 +7,11 @@ import { Upload, X } from "lucide-react";
 import { useState } from "react";
 import zod from "zod";
 
-const settingsSchema = zod.object({
+const profileSchema = zod.object({
   userName: zod.string().min(1, { message: "Please choose a username." }),
   avatar: zod
     .custom<File>((file) => file instanceof File)
-    .refine((file) => file.size <= 2 * 1024 * 1024, {
+    .refine((file) => file.size <= 10 * 1024 * 1024, {
       message: "File size should be less than 2MB",
     })
     .refine((file) => ["image/jpeg", "image/png"].includes(file.type), {
@@ -33,9 +33,9 @@ export const settingsFields: Field[] = [
     Component: ({ field }) => {
       const { name, onChange } = field;
       const [previewSrc, setPreviewSrc] = useState("");
+
       const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
-        console.log({ files });
         if (!files) return;
 
         const file = files[0];
@@ -114,5 +114,5 @@ export const settingsFields: Field[] = [
   },
 ];
 
-export const settingsFormResolver = zodResolver(settingsSchema);
-export type TSettings = zod.infer<typeof settingsSchema>;
+export const profileFormResolver = zodResolver(profileSchema);
+export type TProfile = zod.infer<typeof profileSchema>;

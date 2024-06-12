@@ -6,6 +6,7 @@ import { ErrorResponse } from "@/types/response";
 
 export const useCreateChallenge = () => {
   const axios = useAxios();
+
   const { mutate, data, isPending } = useMutation<
     CreateChallengeResponse,
     ErrorResponse,
@@ -25,9 +26,8 @@ export const useCreateChallenge = () => {
       console.log({ data });
     },
     onError: (error) => {
-      console.log(({ error }))
-
-    }
+      console.log({ error });
+    },
   });
 
   const createChallenge = async (data: TChallenge) => {

@@ -29,23 +29,23 @@ function LoginPage() {
       email: data.email,
     });
   };
-  
+
   return (
-    <div className="h-screen grid place-items-center">
-      <Card className="w-[32rem] ">
+    <div className="h-screen grid place-items-center p-2">
+      <Card className="md:w-1/2 lg:w-1/3">
         <CardHeader className="text-center">
           <CardTitle className="text-4xl">Study Sathi</CardTitle>
           <p className="text-lg">Welcome back! Sign in to continue</p>
         </CardHeader>
 
         <CardContent className="flex flex-col">
-          <div className="flex gap-4">
+          <div className="flex flex-col lg:flex-row justify-center gap-4">
             <Button className="flex-1 h-auto py-2 ">
-              <Github className="mr-2" />
+              <Github className="" />
               With Github
             </Button>
             <Button className="flex-1 h-auto py-2 ">
-              <Google className="mr-2" />
+              <Google className="" />
               With Google
             </Button>
           </div>

@@ -2,6 +2,7 @@ import { QueryClientProvider } from "@/components/providers/query-client/query-c
 import { routeTree } from "./routeTree.gen.ts";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { Toaster } from "@/components/ui/sonner.tsx";
+import { ThemeProvider } from "./providers/theme-provider.tsx";
 
 const router = createRouter({ routeTree });
 
@@ -12,10 +13,13 @@ declare module "@tanstack/react-router" {
 }
 const App = () => {
   return (
-    <QueryClientProvider>
-      <RouterProvider router={router} />
-      <Toaster richColors />
-    </QueryClientProvider>
+    <ThemeProvider defaultTheme="dark" storageKey="sathi-theme">
+      <QueryClientProvider>
+        <RouterProvider router={router} />
+        <Toaster richColors />
+      </QueryClientProvider>
+    </ThemeProvider>
+
   );
 };
 
