@@ -17,10 +17,12 @@ export const Sidebar = () => {
   const className = showSidebar ? "translate-x-0 flex" : "hidden lg:translate-x-0 "
   return (
     <div>
-      <div className={`${className} flex-col pr-4 transition w-72`}>
+      <div className={`${className} flex-col pr-4 transition w-72 h-full`}>
         <div className="flex items-center justify-between p-4">
           <SathiAvatar />
-          <Burger />
+          <div onClick={toggleSidebar} className="lg:hidden">
+            <Burger />
+          </div>
         </div>
 
         <Separator className="my-4" />
