@@ -118,7 +118,7 @@ const simpleSandpackConfig: SandpackConfig = {
 };
 
 export const SathiEditor = React.forwardRef<MDXEditorMethods, SathiEditorProps>(
-  ({ onChange, placeholder, markdown, className, readOnly }, ref) => {
+  ({ onChange, placeholder, markdown, readOnly }, ref) => {
     const plugins = [
       headingsPlugin(),
       listsPlugin(),
@@ -140,6 +140,8 @@ export const SathiEditor = React.forwardRef<MDXEditorMethods, SathiEditorProps>(
       markdownShortcutPlugin(),
     ];
 
+    // we will use ssame component for preview
+    // so only add plugins if it's not readOnly mode
     if (!readOnly) {
       plugins.push(
         toolbarPlugin({
@@ -148,12 +150,13 @@ export const SathiEditor = React.forwardRef<MDXEditorMethods, SathiEditorProps>(
       );
     }
 
+    console.log({ placeholder });
     return (
       <MDXEditor
         ref={ref}
-        className={className}
+        className={`rounded-md ${!readOnly && "border border-white"} w-full`}
         placeholder={placeholder}
-        contentEditableClassName="prose dark:text-white"
+        contentEditableClassName={`prose dark:text-white ${!readOnly && "min-h-96"}`}
         markdown={markdown}
         onChange={onChange}
         readOnly={readOnly}

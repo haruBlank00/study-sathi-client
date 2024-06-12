@@ -45,6 +45,7 @@ function PreviewLog() {
         <h2 className="text-white">Day {log.day}</h2>
         <h1 className="text-white">{log.challenge.name}</h1>
       </div>
+
       <MdxPreview markdown={log.content} />
     </main>
   );

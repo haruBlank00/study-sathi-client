@@ -54,7 +54,7 @@ export const FormBuilder = <T extends FieldValues>({
     const { label, name, placeholder, type } = field;
 
     if (field.type === "select") {
-      const { customClass = { input: "" } } = field;
+      const { customClass = { trigger: "" } } = field;
       return (
         <FormField
           key={name}
@@ -72,6 +72,7 @@ export const FormBuilder = <T extends FieldValues>({
                     customClass={customClass}
                     onChange={rhfField.onChange}
                     value={rhfField.value}
+                    label={field.label}
                   />
                 </FormControl>
                 <FormMessage />
@@ -155,7 +156,7 @@ export const FormBuilder = <T extends FieldValues>({
                   }}
                   placeholder={placeholder}
                   type={type}
-                  className={customClass.input}
+                  // className={}
                 />
               </FormControl>
               <FormMessage />
@@ -174,12 +175,7 @@ export const FormBuilder = <T extends FieldValues>({
           <FormItem>
             <FormLabel className={customClass.label}>{label}</FormLabel>
             <FormControl>
-              <Input
-                {...field}
-                placeholder={placeholder}
-                type={type}
-                className={customClass.input}
-              />
+              <Input {...field} placeholder={placeholder} type={type} />
             </FormControl>
             <FormMessage />
           </FormItem>

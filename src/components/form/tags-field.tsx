@@ -93,14 +93,14 @@ export const TagsField = ({
   );
   const showTags = value.length > 0;
   return (
-    <div className="flex items-center">
+    <div className="flex items-center border-b border-primary pb-2">
       {showTags && tagsUI}
       <Input
         value={tag}
         name={name}
         type="text"
         placeholder={placeholder}
-        className="h-full text-2xl px-0 font-semibold border-none shadow-none flex-1"
+        className="h-full px-0 font-semibold border-none shadow-none flex-1 "
         onKeyDown={onKeyPressHandler}
         onChange={onInputChangeHandler}
       />

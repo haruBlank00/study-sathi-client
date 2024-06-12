@@ -8,6 +8,7 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { FormField } from "../form/types";
+import { Separator } from "@radix-ui/react-select";
 
 type SathiSelectOption = {
   value: string;
@@ -19,7 +20,7 @@ export interface SathiSelectField extends FormField {
   options: SathiSelectOption[];
   placeholder?: string;
   customClass?: {
-    input?: string;
+    trigger?: string;
   };
 }
 
@@ -32,9 +33,6 @@ export const SathiSelect = ({
   placeholder,
   label,
   options,
-  customClass = {
-    input: "",
-  },
   onChange,
   value,
 }: SathiSelectProps) => {
@@ -45,19 +43,23 @@ export const SathiSelect = ({
       }}
       value={value}
     >
-      <SelectTrigger className={customClass.input}>
+      <SelectTrigger
+        className={
+          "h-full px-0  shadow-none border-0 border-b border-primary rounded-none"
+        }
+      >
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
 
-      <SelectContent>
+      <SelectContent className="w-96">
         <SelectGroup>
-          <SelectLabel>{label}</SelectLabel>
-
+          <SelectLabel className="text-white">{label}</SelectLabel>
+          <Separator className="bg-primary" />
           {options.map((option) => (
             <SelectItem
               key={option.value}
               value={option.value}
-              className="text-red-500"
+              className="text-primary cursor-pointer"
             >
               {option.label}
             </SelectItem>

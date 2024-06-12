@@ -88,14 +88,14 @@ function ChallengePage() {
   const isBtnDisabled = isChallengeCreating || isChallengeUpdating;
   const isBtnLoading = isChallengeCreating || isChallengeUpdating;
   return (
-    <div>
-      <h2 className="font-semibold text-2xl py-4">{TITLE} :)</h2>
+    <div className="max-w-2xl">
       <Card className="w-full px-6 py-8">
+        <h2 className="font-semibold text-2xl">{TITLE} :)</h2>
         <SathiForm
           fields={challengeFields}
           form={form}
           onSubmit={onSubmitHandler}
-          className="flex flex-col"
+          className="flex flex-col gap-4"
         >
           <div className="flex gap-4 mt-8">
             <SathiButton

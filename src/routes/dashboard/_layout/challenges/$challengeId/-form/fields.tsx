@@ -39,7 +39,7 @@ export const challengeFields: Field[] = [
   {
     name: "name",
     label: "",
-    placeholder: "New challenge name here...",
+    placeholder: "What's the challenge?",
     type: "text",
     customClass: {
       input: "h-full text-2xl px-0 font-semibold border-none shadow-none",
@@ -48,7 +48,7 @@ export const challengeFields: Field[] = [
   },
   {
     name: "days",
-    placeholder: "Enter number of days",
+    placeholder: "Challenge for X days?",
     type: "number",
     default: "",
     customClass: {
@@ -58,11 +58,11 @@ export const challengeFields: Field[] = [
   {
     name: "privacy",
     type: "select",
-    placeholder: "Public / Private",
+    placeholder: "Make it public? or private?",
     default: "",
+    label: "Make it private or public?",
     customClass: {
-      input:
-        "h-full text-2xl px-0 font-semibold border-none shadow-none text-gray-500",
+      trigger: "",
     },
     options: [
       {
@@ -77,7 +77,7 @@ export const challengeFields: Field[] = [
   },
   {
     name: "tags",
-    placeholder: "Add upto 4 tags...",
+    placeholder: "#4 tags to organize!!",
     default: [],
     type: "tags",
   },
@@ -94,8 +94,8 @@ export const challengeFields: Field[] = [
 
 export const initialValues = {
   name: "",
-  days: 0,
-  privacy: "public",
+  days: 30,
+  privacy: "",
   tags: [],
   description: "",
 };
