@@ -10,11 +10,11 @@ import { useState } from "react";
 import { useTailwindBreakpoint } from "@/hooks/useTailwindBreakPoint";
 export const Sidebar = () => {
   const breakPoint = useTailwindBreakpoint();
-  console.log({ breakPoint })
   const [showSidebar, setShowSidebar] = useState(['lg', '2xl'].includes(breakPoint));
 
+  console.log({ breakPoint, showSidebar })
   const toggleSidebar = () => setShowSidebar(prev => !prev)
-  const className = showSidebar ? "translate-x-0 flex" : "sm:hidden lg:translate-x-0 "
+  const className = showSidebar ? "translate-x-0 flex" : "hidden lg:translate-x-0 "
   return (
     <div>
       <div className={`${className} flex-col pr-4 transition w-72`}>

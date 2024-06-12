@@ -22,18 +22,17 @@ export const useTailwindBreakpoint = () => {
     getCurrentBreakpoint(window.innerWidth),
   );
 
-  useEffect(() => {
-    const handleResize = () => {
-      setBreakpoint(getCurrentBreakpoint(window.innerWidth));
-    };
+  const handleResize = () => {
+    setBreakpoint(getCurrentBreakpoint(window.innerWidth));
+  };
 
+  useEffect(() => {
     window.addEventListener("resize", handleResize);
 
-    // Cleanup event listener on unmount
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [window.innerWidth]);
+  }, []);
 
   return breakpoint;
 };
