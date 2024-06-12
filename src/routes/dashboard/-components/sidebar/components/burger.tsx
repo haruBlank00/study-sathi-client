@@ -38,15 +38,15 @@ export const Burger = () => {
     >
       <motion.span
         variants={topBurger}
-        className="block h-1 w-6 bg-black"
+        className="block h-1 w-6 bg-purple-600"
       ></motion.span>
       <motion.span
         variants={midBurger}
-        className="block h-1 w-6 bg-black"
+        className="block h-1 w-6 bg-purple-600"
       ></motion.span>
       <motion.span
         variants={bottomBurger}
-        className="block h-1 w-6 bg-black"
+        className="block h-1 w-6 bg-purple-600"
       ></motion.span>
     </motion.div>
   );

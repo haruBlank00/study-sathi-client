@@ -6,7 +6,7 @@ type ItemsMapperProps = {
 };
 export const ItemsMapper = ({ items }: ItemsMapperProps) => {
   return (
-    <div>
+    <div className="flex flex-col gap-1">
       {items.map((item) => {
         const { id } = item;
         return <Item item={item} key={id} />;
@@ -21,8 +21,8 @@ export const Item = ({ item }: { item: SideBarItem }) => {
   return (
     <Link
       to={to}
-      className="flex gap-2 p-4 capitalize hover:bg-yellow-200 transition "
-      activeProps={{ className: "bg-yellow-200 shadow-md" }}
+      className={`flex gap-2 p-4 capitalize hover:bg-slate-400 rounded-md shadow-md transition`}
+      activeProps={{ className: "bg-purple-400 text-purple-900" }}
       activeOptions={{
         exact: true,
       }}

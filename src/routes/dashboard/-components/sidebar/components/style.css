@@ -1,0 +1,15 @@
+  @layer components {
+    .nav-link {
+      @apply px-4 py-2 block;
+
+      /* Base styles */
+      &.active {
+        @apply bg-blue-500 text-white;
+      }
+
+      /* Hover state (applied only when not active) */
+      &[data-status="inactive"]:hover {
+        @apply bg-gray-200;
+      }
+    }
+  }

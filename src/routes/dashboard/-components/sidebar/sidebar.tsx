@@ -8,7 +8,7 @@ import { Settings } from "lucide-react";
 import { Route as SettingsRoute } from "@/routes/dashboard/_layout/settings";
 export const Sidebar = () => {
   return (
-    <div className=" bg-red-200 w-40 flex flex-col">
+    <div className="w-50 flex flex-col pr-4">
       <div className="flex items-center justify-between p-4">
         <SathiAvatar />
         <Burger />
