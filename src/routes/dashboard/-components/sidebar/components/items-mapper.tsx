@@ -21,8 +21,8 @@ export const Item = ({ item }: { item: SideBarItem }) => {
   return (
     <Link
       to={to}
-      className={`flex gap-2 p-4 capitalize hover:bg-purple-400 hover:text-purple-900  rounded-md shadow-md transition`}
-      activeProps={{ className: "bg-purple-400 text-purple-900" }}
+      className={`flex gap-2 p-4 capitalize hover:bg-primary rounded-md shadow-md transition`}
+      activeProps={{ className: "bg-primary" }}
       activeOptions={{
         exact: true,
       }}

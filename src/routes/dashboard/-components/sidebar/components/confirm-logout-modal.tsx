@@ -19,7 +19,7 @@ export const ConfirmLogoutModal = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <footer className="flex gap-2 justify-between cursor-pointer mt-auto p-4 capitalize transition hover:bg-purple-400 hover:text-purple-900 ">
+        <footer className="flex gap-2 justify-between cursor-pointer mt-auto p-4 capitalize transition hover:bg-primary">
           Logout
           <LogOut />
         </footer>
