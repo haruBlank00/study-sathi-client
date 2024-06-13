@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { SideBarItem } from "../data";
+import { SideBarItem } from "../../../routes/(home)/-data/data";
 
 type ItemsMapperProps = {
   items: SideBarItem[];

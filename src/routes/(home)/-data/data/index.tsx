@@ -1,6 +1,6 @@
 import { cryptoId } from "@/lib/utils";
 import { LinkProps } from "@tanstack/react-router";
-import { Gauge, Swords } from "lucide-react";
+import { Anvil, Home, Tags } from "lucide-react";
 
 export interface SideBarItem extends LinkProps {
   id: string;
@@ -11,14 +11,20 @@ export interface SideBarItem extends LinkProps {
 export const sidebarData: SideBarItem[] = [
   {
     id: cryptoId(),
-    label: "dashboard",
-    to: "/dashboard",
-    icon: <Gauge />,
+    label: "Home",
+    to: "/",
+    icon: <Home />,
   },
   {
     id: cryptoId(),
-    label: "challenge",
-    to: "/dashboard/challenges/",
-    icon: <Swords />,
+    label: "Tags",
+    to: "/tags",
+    icon: <Tags />,
+  },
+  {
+    id: cryptoId(),
+    label: "Q&A",
+    to: "q&a",
+    icon: <Anvil />,
   },
 ];

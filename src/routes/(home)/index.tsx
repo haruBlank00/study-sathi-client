@@ -1,5 +1,7 @@
 import { Sidebar } from "@/components/sidebar/sidebar";
 import { createFileRoute } from "@tanstack/react-router";
+import { sidebarData } from "./-data/data";
+import { Header } from "./-components/sidebar/header/header";
 export const Route = createFileRoute("/(home)/")({
   component: HomePage,
 });
@@ -7,10 +9,10 @@ export const Route = createFileRoute("/(home)/")({
 function HomePage() {
   return (
     <div className="flex flex-col">
-      <div>search</div>
+      <Header />
 
-      <div>
-        <Sidebar />
+      <div className="container">
+        <Sidebar items={sidebarData} />
       </div>
     </div>
   );
