@@ -1,9 +1,21 @@
 import { authStore } from "@/store/auth/authStore";
 import axios, { AxiosError } from "axios";
 import { getEnv } from "../getEnv";
+import { toast } from "sonner";
+import axiosRetry from "axios-retry";
 
 export const apiInstance = axios.create({
   baseURL: getEnv<string>("SS_API_END_POINT"),
+});
+axiosRetry(apiInstance, {
+  retries: 3,
+  onRetry(retryCount, error, requestConfig) {
+    console.log({ retryCount, error, requestConfig });
+  },
+  onMaxRetryTimesExceeded() {
+    toast.error("OH NOOO!!!. Looks like our server is down. :(");
+  },
+  retryDelay: axiosRetry.exponentialDelay,
 });
 
 apiInstance.interceptors.request.use(
@@ -20,7 +32,7 @@ apiInstance.interceptors.request.use(
   (error) => {
     console.log({ error }, "error happended");
     return Promise.reject(error);
-  }
+  },
 );
 
 apiInstance.interceptors.response.use(
@@ -80,6 +92,6 @@ apiInstance.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 export default apiInstance;

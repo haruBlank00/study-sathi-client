@@ -23,6 +23,7 @@ export const useGetMagicTokens = () => {
   >({
     mutationFn: ({ email }: MagicLinkParams) => getMagicLinkTokens({ email }),
     onError: (err) => {
+      console.log("error here?", err)
       if (err.request) {
         const { error } = err.request.data;
         toast.error(error.message);

@@ -33,6 +33,7 @@
     "@tanstack/react-query-devtools": "^5.32.0",
     "@tanstack/react-router": "^1.29.2",
     "axios": "^1.6.8",
+    "axios-retry": "^4.4.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "date-fns": "^3.6.0",
