@@ -8,7 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useLogout } from "@/routes/dashboard/-hooks/useLogout";
+import { useLogout } from "@/hooks/useLogout";
 import { LogOut } from "lucide-react";
 export const ConfirmLogoutModal = () => {
   const { logout } = useLogout();

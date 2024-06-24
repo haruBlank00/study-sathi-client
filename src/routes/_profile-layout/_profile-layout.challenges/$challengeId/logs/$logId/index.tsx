@@ -9,7 +9,7 @@ import { GetLogResponse } from "./-interface";
 import { MdxPreview } from "@/components/sathi-editor/mdx-preview";
 import { CommentsSection } from "./-components/comments-section/comments-section";
 export const Route = createFileRoute(
-  "/dashboard/_layout/challenges/$challengeId/logs/$logId/"
+  "/_profile-layout/_profile-layout/challenges/$challengeId/logs/$logId/"
 )({
   component: PreviewLog,
   loader: async ({ params: { challengeId, logId } }) => {
@@ -37,7 +37,7 @@ export const Route = createFileRoute(
 
 function PreviewLog() {
   const log = useLoaderData({
-    from: "/dashboard/_layout/challenges/$challengeId/logs/$logId/",
+    from: "/_profile-layout/_profile-layout/challenges/$challengeId/logs/$logId/",
   });
 
   return (

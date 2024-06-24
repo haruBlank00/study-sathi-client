@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { TProfile, settingsFields, profileFormResolver } from "./-form";
 import { usePutProfile } from "./-hooks/usePutProfile";
 
-export const Route = createFileRoute("/dashboard/_layout/settings/")({
+export const Route = createFileRoute("/_profile-layout/settings/")({
   component: SettingsPage,
 });
 

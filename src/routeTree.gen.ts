@@ -15,31 +15,25 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as ByebyeIndexImport } from './routes/byebye/index'
 import { Route as homeIndexImport } from './routes/(home)/index'
-import { Route as DashboardLayoutImport } from './routes/dashboard/_layout'
 import { Route as AuthLayoutImport } from './routes/auth/_layout'
-import { Route as DashboardLayoutIndexImport } from './routes/dashboard/_layout/index'
-import { Route as DashboardLayoutSettingsIndexImport } from './routes/dashboard/_layout/settings/index'
-import { Route as DashboardLayoutChallengesIndexImport } from './routes/dashboard/_layout/challenges/index'
+import { Route as ProfileLayoutProfileLayoutImport } from './routes/_profile-layout/_profile-layout'
+import { Route as ProfileLayoutSettingsIndexImport } from './routes/_profile-layout/settings/index'
 import { Route as AuthLayoutMagiclinkIndexImport } from './routes/auth/_layout/magiclink/index'
-import { Route as DashboardLayoutChallengesChallengeIdIndexImport } from './routes/dashboard/_layout/challenges/$challengeId/index'
-import { Route as DashboardLayoutChallengesChallengeIdLogsIndexImport } from './routes/dashboard/_layout/challenges/$challengeId/logs/index'
-import { Route as DashboardLayoutChallengesChallengeIdLogsNewImport } from './routes/dashboard/_layout/challenges/$challengeId/logs/new'
-import { Route as DashboardLayoutChallengesChallengeIdLogsLogIdIndexImport } from './routes/dashboard/_layout/challenges/$challengeId/logs/$logId/index'
+import { Route as ProfileLayoutProfileLayoutDashboardIndexImport } from './routes/_profile-layout/_profile-layout.dashboard/index'
+import { Route as ProfileLayoutProfileLayoutChallengesIndexImport } from './routes/_profile-layout/_profile-layout.challenges/index'
+import { Route as ProfileLayoutProfileLayoutChallengesChallengeIdIndexImport } from './routes/_profile-layout/_profile-layout.challenges/$challengeId/index'
+import { Route as ProfileLayoutProfileLayoutChallengesChallengeIdLogsIndexImport } from './routes/_profile-layout/_profile-layout.challenges/$challengeId/logs/index'
+import { Route as ProfileLayoutProfileLayoutChallengesChallengeIdLogsNewImport } from './routes/_profile-layout/_profile-layout.challenges/$challengeId/logs/new'
+import { Route as ProfileLayoutProfileLayoutChallengesChallengeIdLogsLogIdIndexImport } from './routes/_profile-layout/_profile-layout.challenges/$challengeId/logs/$logId/index'
 
 // Create Virtual Routes
 
-const DashboardImport = createFileRoute('/dashboard')()
 const AuthImport = createFileRoute('/auth')()
 const AuthLayoutSigninRouteLazyImport = createFileRoute(
   '/auth/_layout/signin',
 )()
 
 // Create/Update Routes
-
-const DashboardRoute = DashboardImport.update({
-  path: '/dashboard',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const AuthRoute = AuthImport.update({
   path: '/auth',
@@ -56,20 +50,24 @@ const homeIndexRoute = homeIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const DashboardLayoutRoute = DashboardLayoutImport.update({
-  id: '/_layout',
-  getParentRoute: () => DashboardRoute,
-} as any)
-
 const AuthLayoutRoute = AuthLayoutImport.update({
   id: '/_layout',
   getParentRoute: () => AuthRoute,
 } as any)
 
-const DashboardLayoutIndexRoute = DashboardLayoutIndexImport.update({
-  path: '/',
-  getParentRoute: () => DashboardLayoutRoute,
-} as any)
+const ProfileLayoutProfileLayoutRoute = ProfileLayoutProfileLayoutImport.update(
+  {
+    id: '/_profile-layout/_profile-layout',
+    getParentRoute: () => rootRoute,
+  } as any,
+)
+
+const ProfileLayoutSettingsIndexRoute = ProfileLayoutSettingsIndexImport.update(
+  {
+    path: '/settings/',
+    getParentRoute: () => rootRoute,
+  } as any,
+)
 
 const AuthLayoutSigninRouteLazyRoute = AuthLayoutSigninRouteLazyImport.update({
   path: '/signin',
@@ -78,51 +76,55 @@ const AuthLayoutSigninRouteLazyRoute = AuthLayoutSigninRouteLazyImport.update({
   import('./routes/auth/_layout/signin/route.lazy').then((d) => d.Route),
 )
 
-const DashboardLayoutSettingsIndexRoute =
-  DashboardLayoutSettingsIndexImport.update({
-    path: '/settings/',
-    getParentRoute: () => DashboardLayoutRoute,
-  } as any)
-
-const DashboardLayoutChallengesIndexRoute =
-  DashboardLayoutChallengesIndexImport.update({
-    path: '/challenges/',
-    getParentRoute: () => DashboardLayoutRoute,
-  } as any)
-
 const AuthLayoutMagiclinkIndexRoute = AuthLayoutMagiclinkIndexImport.update({
   path: '/magiclink/',
   getParentRoute: () => AuthLayoutRoute,
 } as any)
 
-const DashboardLayoutChallengesChallengeIdIndexRoute =
-  DashboardLayoutChallengesChallengeIdIndexImport.update({
+const ProfileLayoutProfileLayoutDashboardIndexRoute =
+  ProfileLayoutProfileLayoutDashboardIndexImport.update({
+    path: '/dashboard/',
+    getParentRoute: () => ProfileLayoutProfileLayoutRoute,
+  } as any)
+
+const ProfileLayoutProfileLayoutChallengesIndexRoute =
+  ProfileLayoutProfileLayoutChallengesIndexImport.update({
+    path: '/challenges/',
+    getParentRoute: () => ProfileLayoutProfileLayoutRoute,
+  } as any)
+
+const ProfileLayoutProfileLayoutChallengesChallengeIdIndexRoute =
+  ProfileLayoutProfileLayoutChallengesChallengeIdIndexImport.update({
     path: '/challenges/$challengeId/',
-    getParentRoute: () => DashboardLayoutRoute,
+    getParentRoute: () => ProfileLayoutProfileLayoutRoute,
   } as any)
 
-const DashboardLayoutChallengesChallengeIdLogsIndexRoute =
-  DashboardLayoutChallengesChallengeIdLogsIndexImport.update({
+const ProfileLayoutProfileLayoutChallengesChallengeIdLogsIndexRoute =
+  ProfileLayoutProfileLayoutChallengesChallengeIdLogsIndexImport.update({
     path: '/challenges/$challengeId/logs/',
-    getParentRoute: () => DashboardLayoutRoute,
+    getParentRoute: () => ProfileLayoutProfileLayoutRoute,
   } as any)
 
-const DashboardLayoutChallengesChallengeIdLogsNewRoute =
-  DashboardLayoutChallengesChallengeIdLogsNewImport.update({
+const ProfileLayoutProfileLayoutChallengesChallengeIdLogsNewRoute =
+  ProfileLayoutProfileLayoutChallengesChallengeIdLogsNewImport.update({
     path: '/challenges/$challengeId/logs/new',
-    getParentRoute: () => DashboardLayoutRoute,
+    getParentRoute: () => ProfileLayoutProfileLayoutRoute,
   } as any)
 
-const DashboardLayoutChallengesChallengeIdLogsLogIdIndexRoute =
-  DashboardLayoutChallengesChallengeIdLogsLogIdIndexImport.update({
+const ProfileLayoutProfileLayoutChallengesChallengeIdLogsLogIdIndexRoute =
+  ProfileLayoutProfileLayoutChallengesChallengeIdLogsLogIdIndexImport.update({
     path: '/challenges/$challengeId/logs/$logId/',
-    getParentRoute: () => DashboardLayoutRoute,
+    getParentRoute: () => ProfileLayoutProfileLayoutRoute,
   } as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/_profile-layout/_profile-layout': {
+      preLoaderRoute: typeof ProfileLayoutProfileLayoutImport
+      parentRoute: typeof rootRoute
+    }
     '/auth': {
       preLoaderRoute: typeof AuthImport
       parentRoute: typeof rootRoute
@@ -130,14 +132,6 @@ declare module '@tanstack/react-router' {
     '/auth/_layout': {
       preLoaderRoute: typeof AuthLayoutImport
       parentRoute: typeof AuthRoute
-    }
-    '/dashboard': {
-      preLoaderRoute: typeof DashboardImport
-      parentRoute: typeof rootRoute
-    }
-    '/dashboard/_layout': {
-      preLoaderRoute: typeof DashboardLayoutImport
-      parentRoute: typeof DashboardRoute
     }
     '/(home)/': {
       preLoaderRoute: typeof homeIndexImport
@@ -151,37 +145,37 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLayoutSigninRouteLazyImport
       parentRoute: typeof AuthLayoutImport
     }
-    '/dashboard/_layout/': {
-      preLoaderRoute: typeof DashboardLayoutIndexImport
-      parentRoute: typeof DashboardLayoutImport
+    '/_profile-layout/settings/': {
+      preLoaderRoute: typeof ProfileLayoutSettingsIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/_profile-layout/_profile-layout/challenges/': {
+      preLoaderRoute: typeof ProfileLayoutProfileLayoutChallengesIndexImport
+      parentRoute: typeof ProfileLayoutProfileLayoutImport
+    }
+    '/_profile-layout/_profile-layout/dashboard/': {
+      preLoaderRoute: typeof ProfileLayoutProfileLayoutDashboardIndexImport
+      parentRoute: typeof ProfileLayoutProfileLayoutImport
     }
     '/auth/_layout/magiclink/': {
       preLoaderRoute: typeof AuthLayoutMagiclinkIndexImport
       parentRoute: typeof AuthLayoutImport
     }
-    '/dashboard/_layout/challenges/': {
-      preLoaderRoute: typeof DashboardLayoutChallengesIndexImport
-      parentRoute: typeof DashboardLayoutImport
+    '/_profile-layout/_profile-layout/challenges/$challengeId/': {
+      preLoaderRoute: typeof ProfileLayoutProfileLayoutChallengesChallengeIdIndexImport
+      parentRoute: typeof ProfileLayoutProfileLayoutImport
     }
-    '/dashboard/_layout/settings/': {
-      preLoaderRoute: typeof DashboardLayoutSettingsIndexImport
-      parentRoute: typeof DashboardLayoutImport
+    '/_profile-layout/_profile-layout/challenges/$challengeId/logs/new': {
+      preLoaderRoute: typeof ProfileLayoutProfileLayoutChallengesChallengeIdLogsNewImport
+      parentRoute: typeof ProfileLayoutProfileLayoutImport
     }
-    '/dashboard/_layout/challenges/$challengeId/': {
-      preLoaderRoute: typeof DashboardLayoutChallengesChallengeIdIndexImport
-      parentRoute: typeof DashboardLayoutImport
+    '/_profile-layout/_profile-layout/challenges/$challengeId/logs/': {
+      preLoaderRoute: typeof ProfileLayoutProfileLayoutChallengesChallengeIdLogsIndexImport
+      parentRoute: typeof ProfileLayoutProfileLayoutImport
     }
-    '/dashboard/_layout/challenges/$challengeId/logs/new': {
-      preLoaderRoute: typeof DashboardLayoutChallengesChallengeIdLogsNewImport
-      parentRoute: typeof DashboardLayoutImport
-    }
-    '/dashboard/_layout/challenges/$challengeId/logs/': {
-      preLoaderRoute: typeof DashboardLayoutChallengesChallengeIdLogsIndexImport
-      parentRoute: typeof DashboardLayoutImport
-    }
-    '/dashboard/_layout/challenges/$challengeId/logs/$logId/': {
-      preLoaderRoute: typeof DashboardLayoutChallengesChallengeIdLogsLogIdIndexImport
-      parentRoute: typeof DashboardLayoutImport
+    '/_profile-layout/_profile-layout/challenges/$challengeId/logs/$logId/': {
+      preLoaderRoute: typeof ProfileLayoutProfileLayoutChallengesChallengeIdLogsLogIdIndexImport
+      parentRoute: typeof ProfileLayoutProfileLayoutImport
     }
   }
 }
@@ -189,25 +183,23 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren([
+  ProfileLayoutProfileLayoutRoute.addChildren([
+    ProfileLayoutProfileLayoutChallengesIndexRoute,
+    ProfileLayoutProfileLayoutDashboardIndexRoute,
+    ProfileLayoutProfileLayoutChallengesChallengeIdIndexRoute,
+    ProfileLayoutProfileLayoutChallengesChallengeIdLogsNewRoute,
+    ProfileLayoutProfileLayoutChallengesChallengeIdLogsIndexRoute,
+    ProfileLayoutProfileLayoutChallengesChallengeIdLogsLogIdIndexRoute,
+  ]),
   AuthRoute.addChildren([
     AuthLayoutRoute.addChildren([
       AuthLayoutSigninRouteLazyRoute,
       AuthLayoutMagiclinkIndexRoute,
     ]),
   ]),
-  DashboardRoute.addChildren([
-    DashboardLayoutRoute.addChildren([
-      DashboardLayoutIndexRoute,
-      DashboardLayoutChallengesIndexRoute,
-      DashboardLayoutSettingsIndexRoute,
-      DashboardLayoutChallengesChallengeIdIndexRoute,
-      DashboardLayoutChallengesChallengeIdLogsNewRoute,
-      DashboardLayoutChallengesChallengeIdLogsIndexRoute,
-      DashboardLayoutChallengesChallengeIdLogsLogIdIndexRoute,
-    ]),
-  ]),
   homeIndexRoute,
   ByebyeIndexRoute,
+  ProfileLayoutSettingsIndexRoute,
 ])
 
 /* prettier-ignore-end */

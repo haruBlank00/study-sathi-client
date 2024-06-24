@@ -21,7 +21,7 @@ import { usePutChallenge } from "./-hooks/usePutChallenge";
 import { SathiButton } from "@/components/sathi-button/sathi-button";
 
 export const Route = createFileRoute(
-  "/dashboard/_layout/challenges/$challengeId/"
+  "/_profile-layout/_profile-layout/challenges/$challengeId/"
 )({
   component: ChallengePage,
   loader: async ({
@@ -64,7 +64,7 @@ export const Route = createFileRoute(
 
 function ChallengePage() {
   const challenge = useLoaderData({
-    from: "/dashboard/_layout/challenges/$challengeId/",
+    from: "/_profile-layout/_profile-layout/challenges/$challengeId/",
   });
   const form = useForm<TChallenge>({
     resolver: challengeResolver,

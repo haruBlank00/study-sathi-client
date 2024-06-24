@@ -5,7 +5,7 @@ import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
 import { Sidebar } from "./-components/sidebar/sidebar";
 import { SathiCrumb } from "@/components/sathi-crumb/sathi-crumb";
 
-export const Route = createFileRoute("/dashboard/_layout")({
+export const Route = createFileRoute("/_profile-layout/_profile-layout")({
   beforeLoad: async ({ location }) => {
     const isGoinToDashboard = location.pathname === "/dashboard";
 

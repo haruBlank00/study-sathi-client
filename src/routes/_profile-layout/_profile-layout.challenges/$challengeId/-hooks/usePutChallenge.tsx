@@ -1,11 +1,11 @@
 import apiInstance from "@/lib/axios";
-import { Challenge } from "@/routes/dashboard/_layout/challenges/-interface/index";
 import { ErrorResponse } from "@/types/response";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { TChallenge } from "../-form/fields";
 import { PutChallengeResponse } from "../-interface";
 import { Route } from "../index";
+import { Challenge } from "../../-interface";
 
 export const usePutChallenge = () => {
   const { challengeId } = Route.useParams();

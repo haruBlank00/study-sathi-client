@@ -41,11 +41,11 @@ function LoginPage() {
 
         <CardContent className="flex flex-col">
           <div className="flex flex-col lg:flex-row justify-center gap-4">
-            <Button className="flex-1 h-auto py-2 ">
+            <Button className="flex-1 h-auto py-2 flex gap-2">
               <Github className="" />
               With Github
             </Button>
-            <Button className="flex-1 h-auto py-2 ">
+            <Button className="flex-1 h-auto py-2 flex gap-2">
               <Google className="" />
               With Google
             </Button>

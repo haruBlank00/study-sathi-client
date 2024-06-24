@@ -5,14 +5,14 @@ import { TLog, defaultValues, logFields, resolver } from "./-form/fields";
 import { SathiForm } from "@/components/form/sathi-form";
 import { SathiButton } from "@/components/sathi-button/sathi-button";
 export const Route = createFileRoute(
-  "/dashboard/_layout/challenges/$challengeId/logs/new"
+  "/_profile-layout/_profile-layout/challenges/$challengeId/logs/new"
 )({
   component: CreatNewLogPage,
 });
 
 function CreatNewLogPage() {
   const { challengeId } = useParams({
-    from: "/dashboard/_layout/challenges/$challengeId/logs/new",
+    from: "/_profile-layout/_profile-layout/challenges/$challengeId/logs/new",
   });
   const form = useForm({
     resolver,

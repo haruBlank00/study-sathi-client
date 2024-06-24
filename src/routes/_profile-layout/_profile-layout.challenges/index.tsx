@@ -1,7 +1,7 @@
 import { queryClient } from "@/components/providers/query-client/queryClient";
 import { Button } from "@/components/ui/button";
 import apiInstance from "@/lib/axios";
-import { } from "@tanstack/query-core";
+import {} from "@tanstack/query-core";
 
 import { Link, createFileRoute, useLoaderData } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
@@ -10,7 +10,9 @@ import { Challenge, GetChallengesResponse } from "./-interface";
 import { ChallengeList } from "./-components/challenge/challenge-list";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/dashboard/_layout/challenges/")({
+export const Route = createFileRoute(
+  "/_profile-layout/_profile-layout/challenges/"
+)({
   component: ChallengePage,
   loader: async (): Promise<Challenge[]> => {
     const result = await queryClient.ensureQueryData<GetChallengesResponse>({
@@ -34,7 +36,7 @@ export const Route = createFileRoute("/dashboard/_layout/challenges/")({
 
 function ChallengePage() {
   const challenges = useLoaderData({
-    from: "/dashboard/_layout/challenges/",
+    from: "/_profile-layout/_profile-layout/challenges/",
   });
 
   console.log({ challenges });
@@ -43,7 +45,7 @@ function ChallengePage() {
     <div>
       <div className="flex justify-end">
         <Link
-          to="/dashboard/challenges/$challengeId"
+          to="/challenges/$challengeId"
           params={{
             challengeId: "new",
           }}
@@ -55,7 +57,9 @@ function ChallengePage() {
       </div>
 
       <main className="mt-4">
-        <h1 className="mb-4 text-2xl font-semibold">Keep on challenging yourself... </h1>
+        <h1 className="mb-4 text-2xl font-semibold">
+          Keep on challenging yourself...{" "}
+        </h1>
         <ChallengeList challenges={challenges} />
       </main>
     </div>

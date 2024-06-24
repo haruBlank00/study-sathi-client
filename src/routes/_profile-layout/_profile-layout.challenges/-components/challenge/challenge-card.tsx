@@ -17,30 +17,34 @@ type ChallengeCardProps = {
 };
 
 export const ChallengeCard = ({ challenge }: ChallengeCardProps) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const challengeDays = `${challenge.days} day${challenge.days > 1 ? "s" : ""}`;
 
   const redirectToLogPage = () => {
     navigate({
-      to: "/dashboard/challenges/$challengeId/logs",
+      to: "/challenges/$challengeId/logs",
       params: {
         challengeId: challenge._id,
-      }
-
-    })
-  }
+      },
+    });
+  };
 
   return (
-    <Card className="cursor-pointer group h-full border-primary shadow-md hover:-translate-y-1 transition-transform" onClick={redirectToLogPage}>
+    <Card
+      className="cursor-pointer group h-full border-primary shadow-md hover:-translate-y-1 transition-transform"
+      onClick={redirectToLogPage}
+    >
       <CardHeader className="flex flex-row justify-between">
         <div>
-          <CardTitle className="capitalize text-primary mb-2">{challenge.name}</CardTitle>
+          <CardTitle className="capitalize text-primary mb-2">
+            {challenge.name}
+          </CardTitle>
           <CardDescription>{challengeDays}</CardDescription>
         </div>
 
         <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity items-center">
           <Link
-            to="/dashboard/challenges/$challengeId"
+            to="/challenges/$challengeId"
             params={{
               challengeId: challenge._id,
             }}

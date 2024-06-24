@@ -1,6 +1,6 @@
 import { queryClient } from "@/components/providers/query-client/queryClient";
 import { Button } from "@/components/ui/button";
-import { Badge } from '@/components/ui/badge'
+import { Badge } from "@/components/ui/badge";
 import apiInstance from "@/lib/axios";
 import {
   Link,
@@ -13,7 +13,7 @@ import { GetLogsResponse } from "./-interface";
 import { Timeline } from "./-components/timeline/timeline";
 import { Separator } from "@/components/ui/separator";
 export const Route = createFileRoute(
-  "/dashboard/_layout/challenges/$challengeId/logs/"
+  "/_profile-layout/_profile-layout/challenges/$challengeId/logs/"
 )({
   component: ChallengeLogs,
   loader: async ({ params }) => {
@@ -32,33 +32,34 @@ export const Route = createFileRoute(
     if (!data.success) {
       toast.error(data.message);
       return {
-        logs: [], challenge: null
-      }
+        logs: [],
+        challenge: null,
+      };
     }
 
     const returnData = {
       logs: data.data.logs,
-      challenge: data.data.challenge
-    }
+      challenge: data.data.challenge,
+    };
     return returnData;
   },
 });
 
 function ChallengeLogs() {
   const { challengeId } = useParams({
-    from: "/dashboard/_layout/challenges/$challengeId/logs/",
+    from: "/_profile-layout/_profile-layout/challenges/$challengeId/logs/",
   });
 
   const { logs, challenge } = useLoaderData({
-    from: "/dashboard/_layout/challenges/$challengeId/logs/",
+    from: "/_profile-layout/_profile-layout/challenges/$challengeId/logs/",
   });
 
-  console.log({ logs, challenge })
+  console.log({ logs, challenge });
 
   return (
     <div>
       <Link
-        to="/dashboard/challenges/$challengeId/logs/$logId"
+        to="/challenges/$challengeId/logs/$logId"
         params={{
           challengeId,
           logId: "new",
@@ -69,26 +70,20 @@ function ChallengeLogs() {
 
       <main className="mt-4">
         <div className="mb-4 prose">
-          <h2 className="capitalize text-white">{challenge?.name}
-            <span>
-              ({challenge?.days} Days)
-            </span>
+          <h2 className="capitalize text-white">
+            {challenge?.name}
+            <span>({challenge?.days} Days)</span>
           </h2>
-          <p className="text-white capitalize">
-            {challenge?.description}
-          </p>
-
+          <p className="text-white capitalize">{challenge?.description}</p>
 
           <ul className="flex gap-2 list-none">
-            {
-              challenge?.tags.map(tag => {
-                return <li>
-                  <Badge>
-                    {tag.tag}
-                  </Badge>
+            {challenge?.tags.map((tag) => {
+              return (
+                <li>
+                  <Badge>{tag.tag}</Badge>
                 </li>
-              })
-            }
+              );
+            })}
           </ul>
         </div>
 

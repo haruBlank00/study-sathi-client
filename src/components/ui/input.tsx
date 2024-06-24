@@ -27,11 +27,11 @@ export interface IconInputProps extends InputProps {
 
 const IconInput = React.forwardRef<HTMLInputElement, IconInputProps>(
   (props, ref) => {
-    const { Icon, className } = props;
+    const { Icon, className, ...rest } = props;
     return (
       <div className="border border-primary flex items-center px-2 shadow-sm rounded-md">
         {<Icon />}
-        <Input {...props} ref={ref} className={cn('border-none', className)} />
+        <Input {...rest} ref={ref} className={cn('border-none', className)} />
       </div>
     );
   }
